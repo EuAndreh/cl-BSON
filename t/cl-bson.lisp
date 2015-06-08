@@ -488,7 +488,6 @@
     (is-type (get-element doc "binary data")
              '<binary-data>
              "binary data in document is a <BINARY-DATA>.")
-
     (is-type (get-element doc "javascript code")
              '<javascript>
              "javascript code in document is a <JAVASCRIPT>.")

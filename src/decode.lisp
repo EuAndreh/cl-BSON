@@ -147,6 +147,8 @@
          (subtype (case (fast-read-byte *bson-in*)
                     (#x00 :generic)
                     (#x01 :function)
+                    (#x02 :binary-old)
+                    (#x03 :uuid-old)
                     (#x04 :uuid)
                     (#x05 :md5)
                     (#x80 :user-defined)))
