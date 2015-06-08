@@ -521,4 +521,27 @@
              'timestamp
              "local-time:timestamp in document is a TIMESTAMP.")))
 
+(deftest binary-data-subtypes-test
+  (is (subtype (enc-dec-kv "bin" (make-instance '<binary-data>)))
+      :generic
+      "Default <BINARY-DATA> subtype is :GENERIC.")
+  (is (subtype (enc-dec-kv "bin" (make-instance '<binary-data> :subtype :function)))
+      :function
+      "<BINARY-DATA> subtype is :FUNCTION")
+  (is (subtype (enc-dec-kv "bin" (make-instance '<binary-data> :subtype :binary-old)))
+      :binary-old
+      "<BINARY-DATA> subtype is :binary-old")
+  (is (subtype (enc-dec-kv "bin" (make-instance '<binary-data> :subtype :uuid-old)))
+      :uuid-old
+      "<BINARY-DATA> subtype is :UUID-OLD")
+  (is (subtype (enc-dec-kv "bin" (make-instance '<binary-data> :subtype :uuid)))
+      :uuid
+      "<BINARY-DATA> subtype is :UUID")
+  (is (subtype (enc-dec-kv "bin" (make-instance '<binary-data> :subtype :md5)))
+      :md5
+      "<BINARY-DATA> subtype is :MD5")
+  (is (subtype (enc-dec-kv "bin" (make-instance '<binary-data> :subtype :user-defined)))
+      :user-defined
+      "<BINARY-DATA> subtype is :USER-DEFINED"))
+
 (run-test-all)
