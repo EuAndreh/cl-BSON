@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>
+  Readtable &ndash; cl-bson
+</title>
+    <link rel="stylesheet" href="static/style.css"/>
+    
+  <link rel="stylesheet" href="static/highlight.css"/>
+  <script src="static/highlight.js"></script>
+
+  </head>
+  <body>
+    
+  <h1 class="doc-title">cl-bson » Readtable</h1>
+  <article>
+    <aside>
+      <ol class="toc"><li><a href="overview.html">Overview</a></li><li><a href="bson-types.html">BSON Types</a></li><li><a href="encoding-and-decoding.html">Encoding and decoding</a></li><li><a href="readtable.html">Readtable</a></li></ol>
+    </aside>
+    <main class="codex-section">
+      <code>cl-bson</code> define read-macros and pprinting functions to support read-print equivalence for <code>&lt;document&gt;</code> and <code>&lt;object-id&gt;</code> classes.<div class="codex-doc-node codex-operator codex-macro"><code class="codex-name">bson-document-literal</code><code class="codex-lambda-list">(&amp;rest contents)</code><div class="codex-docstring"><p>Converts the <code class="codex-param">contents</code> list into pairs of <code>(key value)</code> and makes a <code>&lt;document&gt;</code> from it. Expands in the form that create such <code>&lt;document&gt;</code>.</p><p>If any key is repeated (tested with <a href="http://l1sp.org/cl/equal"><code>equal</code></a> in <code>#'repeated-keys-p</code>), or if <code class="codex-param">contents</code> has an odd number of elements, or if <code class="codex-param">contents</code> has non-string keys it throws an <a href="http://l1sp.org/cl/error"><code>error</code></a> at compile-time.</p></div></div><div class="codex-doc-node codex-operator codex-function"><code class="codex-name">object-id-reader</code><code class="codex-lambda-list">(stream char numarg)</code><div class="codex-docstring"><code>&lt;object-id&gt;</code> literal reader function. Converts the symbol inside the form into an <code>&lt;object-id&gt;</code> using <code>#'string-&gt;object-id</code>.</div></div>
+    </main>
+  </article>
+  <footer>
+    <div class="info">
+      Created with <a href="https://github.com/CommonDoc/codex">Codex</a>.
+    </div>
+  </footer>
+  <script>
+   HighlightLisp.highlight_auto();
+  </script>
+
+  </body>
+</html>

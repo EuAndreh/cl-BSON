@@ -1,0 +1,11 @@
+@begin(section)
+@title(Readtable)
+
+@c(cl-bson) define read-macros and pprinting functions to support read-print equivalence for @c(<document>) and @c(<object-id>) classes.
+
+@cl:with-package[name="cl-bson.readtable"](
+@cl:doc(macro bson-document-literal)
+@cl:doc(function object-id-reader)
+)
+
+@end(section)
