@@ -178,7 +178,7 @@ In general, the functions relative to @c(encode-the-value-somehow) converts the 
 
 (defmethod encode-key-value (key (value <javascript>))
   "Encodes the given @c(<javascript>) @cl:param(value). If the @c(scope) attribute of @cl:param(value) is not nil, encodes @cl:param(value) as a \"Code with scope\" object; otherwise, enocodes it as a \"JavaScript code\" object."
-  (if (scope value)
+  (if (slot-boundp value 'scope)
       (progn
         (fast-write-byte #x0F *bson-out*)
         (encode-cstring key)
