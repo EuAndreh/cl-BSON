@@ -90,7 +90,7 @@
       t))
 
 (defun decode-document ()
-  "Binds @c(*doc-out*) to a new document and call @c(#'decode-key-value) to decode values withing the new bound @c(*doc-out*). Returns the decoded @d(*doc-out*) @c(<document>)."
+  "Binds @c(*doc-out*) to a new document and call @c(#'decode-key-value) to decode values withing the new bound @c(*doc-out*). Returns the decoded @c(*doc-out*) @c(<document>)."
   (let ((*doc-out* (make-instance '<document>)))
     (fast-read-sequence (make-octet-vector 4) *bson-in*)
     (decode-key-value)
@@ -169,7 +169,7 @@
     (decode-document)))
 
 (defun decode-timestamp ()
-  "Decodes a @link[uri=\"https://common-lisp.net/project/local-time/manual.html#Types\"](@c(local-time:timestamp) with milliseconds precision."
+  "Decodes a @link[uri=\"https://common-lisp.net/project/local-time/manual.html#Types\"](@c(local-time:timestamp)) with milliseconds precision."
   (let* ((time (decode-int64))
          (milisseconds (rem time 1000))
          (seconds (round (/ (- time milisseconds) 1000)))

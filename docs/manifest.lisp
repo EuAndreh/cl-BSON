@@ -4,7 +4,7 @@
               :authors ("André Miranda")
               :output-format (:type :multi-html
                               :template :minima)
-              :sources ("index.scr"
+              :sources ("api.scr"
                         "types.scr"
                         "encoding-decoding.scr"
                         "readtable.scr"))))

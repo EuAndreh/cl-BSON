@@ -81,7 +81,7 @@ If any key is repeated (tested with @cl:spec(equal) in @c(#'repeated-keys-p)), o
                   doc-keys))))))
 
 (defun pprint-object-id (*standard-output* object-id)
-  "Pprints a given @cl:param(object-id) in the @c(#(hex-id)) format. Stablishes read-print-equivalence for @cl(<object-id>) objects."
+  "Pprints a given @cl:param(object-id) in the @c(#(hex-id)) format. Stablishes read-print-equivalence for @c(<object-id>) objects."
   (pprint-logical-block (*standard-output* nil :prefix "#i(" :suffix ")")
     (princ (str object-id))))
 

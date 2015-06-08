@@ -128,11 +128,13 @@ hello\x00                          // field name
 
 Check the [detailed explanation](https://groups.google.com/d/msg/bson/8g76R0cb-CQ/DWdjQaS0tMMJ) of the last example.
 
-## TODO
-+ Add support for [deprecated stuff](http://bsonspec.org/spec.html)
-+ Implement user-defined binary-data types
+## TODO on documentation:
 + Add `"fork me on GitHub"` button to documentation
-+ BSON file from JavaScript in cl-bson-test
++ Add links to home in the documentation
++ Add package docstrings to documentatiopn
++ Add (setf options) docstrings to documentation
++ Add method docstrings to documentation
++ index.html page
 
 ## Dependencies
 This library depends on:

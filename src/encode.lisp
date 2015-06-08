@@ -36,14 +36,14 @@
   (:import-from named-readtables
                 in-readtable)
   (:export encode)
-  (:documentation "This package defines the main function (@c(#'encode)) for actually converting a @c(<document>) object to @c(octets-array) and many helper functions for internal use."))
+  (:documentation "This package defines the main function (@c(#'encode)) for actually converting a @c(<document>) object to @c(octets-array) and many helper functions for internal use. @c(*bson-out*) gets bound to a @c(fast-io:output-buffer) in the first to of @c(#'encode)."))
 (in-package cl-bson.encode)
 (in-readtable bson-syntax)
 
 (defparameter *bson-out* nil "Special var that gets bound to @c(fast-io:output-buffer) on every @c(#'encode) call.")
 
 (defgeneric encode (document)
-  (:documentation "Encodes a given @cl:param(document) into an @c(octets-array) following the @link[uri=\"http://bsonspec.org/spec.html\"(specification).")
+  (:documentation "Encodes a given @cl:param(document) into an @c(octets-array) following the @link[uri=\"http://bsonspec.org/spec.html\"](BSON specification).")
   (:method ((document <document>))
     (with-fast-output (*bson-out*)
       (encode-document (elements document)))))
@@ -51,11 +51,14 @@
 (defgeneric encode-key-value (key value)
   (:documentation "Main helper generic function for doing the actual work of encoding @cl:param(key) @cl:param(value) pairs. Most of the method implementations have the following skeleton:
 
-@begin[lang=lisp](code)(defmethod encode-key-value (key (value SOME-TYPE))
-   (fast-write-byte BSON-BYTE-SPECIFIER *bson-out*)
-   (encode-cstring key)
-   (encode-the-value-somehow value))
-@end(code)
+@code[lang=lisp]((defmethod encode-key-value (key (value SOME-TYPE))
+  ;; Writes the BSON-BYTE-SPECIFIER
+  (fast-write-byte BSON-BYTE-SPECIFIER *bson-out*)
+  ;; Encodes the key string in C-style
+  (encode-cstring key)
+  ;; Encodes the value with a custom function
+  (encode-the-value-somehow value))
+)
 
 In general, the functions relative to @c(encode-the-value-somehow) converts the @cl:param(value) into an @c(octets-array) and then call @c(#'fast-io:fast-write-sequence)."))
 
@@ -130,6 +133,8 @@ In general, the functions relative to @c(encode-the-value-somehow) converts the 
   (fast-write-byte (case (subtype value)
                      (:generic      #x00)
                      (:function     #x01)
+                     (:binary-old   #x02)
+                     (:uuid-old     #x03)
                      (:uuid         #x04)
                      (:md5          #x05)
                      (:user-defined #x80))

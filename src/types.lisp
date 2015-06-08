@@ -64,7 +64,7 @@ It also exports two custom types (@c(octet) and @c(octets-array))."))
   `(simple-array octet (,size)))
 
 (defparameter *object-id-counter* (random #.(expt 2 24))
-  "3-byte @c((expt 2 24)) size integer counter, starting with a random value.")
+  "3-byte size integer counter, starting with a random value: @c((random (expt 2 24))) .")
 
 (defun increment-id-counter ()
   "Increments @c(*OBJECT-ID-COUNTER*) up to @c((1- (expt 2 24))). When pass that, it \"overflows\" back to 0."
@@ -214,7 +214,7 @@ Check the @link[uri=\"http://docs.mongodb.org/manual/reference/bson-types/#objec
             :initarg :subtype
             :initform :generic
             :type keyword
-            :documentation "This slot holds a keyword that represents one of the @c(<binary-data>) subtypes. A valid @c(subtype) is any of the following: @c(:generic), @c(:function), @c(:uuid), @c(:md5) or @c(:user-defined).")
+            :documentation "This slot holds a keyword that represents one of the @c(<binary-data>) subtypes. A valid @c(subtype) is any of the following: @c(:generic), @c(:function), @c(:binary-old) (@i(deprecated)), @c(:uuid-old) (@i(deprecated)), @c(:uuid), @c(:md5) or @c(:user-defined).")
    (octets :accessor octets
            :initarg :octets
            :initform (make-array 0 :element-type 'octet)
@@ -223,7 +223,8 @@ Check the @link[uri=\"http://docs.mongodb.org/manual/reference/bson-types/#objec
   (:documentation "This class is used to represent custom array of bytes in BSON. @c(<binary-data>) values have a @cl:param(subtype). This is used to indicate what kind of data is in the byte array. Subtypes from zero to 127 are predefined or reserved. Subtypes from 128 to 255 are @c(:user-defined)."))
 
 (defmethod (setf subtype) ((subtype symbol) (binary-data <binary-data>))
-  (if (member subtype '(:generic :function :uuid :md5 :user-defined))
+  (if (member subtype
+              '(:generic :function :binary-old :uuid-old :uuid :md5 :user-defined))
       (setf (slot-value binary-data 'subtype) subtype)
       (error "Invalid SUBTYPE for <BINARY-DATA> object: ~s" subtype)))
 
@@ -242,10 +243,10 @@ Check the @link[uri=\"http://docs.mongodb.org/manual/reference/bson-types/#objec
           :initform nil
           :type <document>
           :documentation "This slot holds a @c(<document>) that represents the scope in which the string should be evaluated. The @c(<document>) is a mapping from identifiers to values."))
-  (:documentation "This class puts together two BSON types: \"JavaScript code\" and \"Code with scope\". When the @cl:param(scope) slot is @c(nil) (default), @c(<javascript>) behaves like \"JavaScript code\". When the @cl:param(scope) slot is not @c(nil), @c(<javascript>) behaves like \"Code with scope\"."))
+  (:documentation "This class puts together two BSON types: \"JavaScript code\" and \"Code with scope\". When the @cl:param(scope) slot is @c(nil) (default), a @c(<javascript>) object gets encoded as \"JavaScript code\". When the @cl:param(scope) slot is not @c(nil), @c(<javascript>) gets encoded as \"Code with scope\"."))
 
 (defparameter *mongo-timestamp-counter* (random #.(expt 2 32))
-  "4-byte @c((expt 2 32)) size integer counter, starting with a random value.")
+  "4-byte size integer counter, starting with a random value:  @c((random (expt 2 32))).")
 
 (defun increment-mongo-timestamp-counter ()
   "Increments *MONGO-TIMESTAMP-COUNTER* up to @c((1- (expt 2 32))). When pass that, it \"overflows\" back to 0."
@@ -253,13 +254,7 @@ Check the @link[uri=\"http://docs.mongodb.org/manual/reference/bson-types/#objec
         (rem (1+ *mongo-timestamp-counter*) #.(expt 2 32))))
 
 (defun generate-mongo-timestamp ()
-  "Generates a fresh 8 bytes @c(octets-array) for a @c(<mongo-timestamp>).
-
-The structure of the array is:
-@begin(enum)
-@item(4 bytes are an increment, starting with a random value.)
-@item(4 bytes are seconds since the Unix epoch.)
-@end(enum)"
+  "Generates a fresh 8 bytes @c(octets-array) for a @c(<mongo-timestamp>)."
   (let ((unix-epoch (-> (now)
                       timestamp-to-unix
                       int32->octets))
@@ -274,7 +269,13 @@ The structure of the array is:
                :initform (generate-mongo-timestamp)
                :type octets-array
                :documentation "Array of actual @c(octets-array) that represent the @link[uri=\"http://docs.mongodb.org/manual/reference/bson-types/#timestamps\"](Mongo Timestamp)."))
-  (:documentation "Special internal type used by MongoDB for replication and sharding. Within a single @c(mongod) instance, @c(<mongo-timestamp>) are always unique."))
+  (:documentation "Special @i(internal) type used by MongoDB for replication and sharding. Within a single @c(mongod) instance, @c(<mongo-timestamp>) are always unique.
+
+The structure of the array is:
+@begin(enum)
+@item(4 bytes are an increment, starting with a random value.)
+@item(4 bytes are seconds since the Unix epoch.)
+@end(enum)"))
 
 (defclass <document> ()
   ((elements :accessor elements
@@ -282,17 +283,20 @@ The structure of the array is:
              :type hash-table
              :initform (make-hash-table :test #'equal)
              :documentation "@c(hash-table) that holds all the the document data."))
-  (:documentation "Main class for interacting with MongoDB. You can instanciate it with @c((make-instance '<document>)), which yields a @c(<document>) with no @c(\"_id\") field; or with @c(#'make-document), which instanciates a @c(<document>) for you with an @c(<object-id>) already."))
+  (:documentation "Main class for interacting with MongoDB.
+
+You can instanciate it with @c((make-instance '<document>)), which yields a @c(<document>) with no @c(\"_id\") field; or with @c(#'make-document), which instanciates a @c(<document>) for you with an @c(<object-id>) already."))
 
 (defun make-document (&key (_id (make-instance '<object-id>)))
-  "Utility function to easily create @c(<document>)s already with an @c(<object-id). To create an @c(<document>) with an @cl:param(_id) from a string, use @c((make-document :_id (string->object-id \"my id string\")))."
+  "Utility function to easily create @c(<document>)s already with an @c(<object-id). To create an @c(<document>) with an @cl:param(_id) from a string, use:
+@code[lang=lisp]((make-document :_id (string->object-id \"my id string\")))."
   (let ((doc (make-instance '<document>)))
     (if _id
         (add-element doc "_id" _id)
         doc)))
 
 (defgeneric add-element (document key value)
-  (:documentation "Properly adds a given @cl:param(key) @cl:param(value) pair to the @cl:param(document). The @cl:param(key) is coerced to string using the @cl:spec(string) function. The type of the @cl:param(value) must be a valid BSON supported type.")
+  (:documentation "Properly adds a given @cl:param(key)-@cl:param(value) pair to the @cl:param(document). The @cl:param(key) is coerced to string using the @cl:spec(string) function. The type of the @cl:param(value) must be a valid BSON supported type.")
   (:method ((document <document>) key value)
     (check-type value (or float string symbol <document> list vector <binary-data> <object-id>
                           boolean <mongo-timestamp> <regex> <javascript> integer timestamp))
