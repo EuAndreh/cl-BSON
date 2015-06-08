@@ -384,6 +384,9 @@
     (is-print (princ #d())
               "#d()"
               "#d() prints like #d().")
+    (is-print (princ #d("1" "2" "3" "4"))
+              "#d(1 2 3 4)"
+              "#d(\"1\" \"2\" \"3\" \"4\") prints correctly.")
     (is-expand #d()
                (LET ()
                  (LET (($DOCUMENT (MAKE-INSTANCE '<DOCUMENT>)))
