@@ -1,3 +1,1 @@
-# Test  
- 
- 
+[Documentation](/api.html)
