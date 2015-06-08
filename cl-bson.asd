@@ -12,7 +12,6 @@
   :depends-on (arrow-macros
                babel
                cl-intbytes
-               cl-reexport
                fast-io
                ieee-floats
                let-over-lambda
