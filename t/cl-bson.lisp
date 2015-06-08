@@ -27,7 +27,7 @@
 
 ;; NOTE: To run this test file, execute `(asdf:test-system :cl-bson)' in your Lisp.
 
-(plan 5)
+(plan 6)
 
 (defmacro! enc-dec-kv (key value)
   "Creates a document, adds a KEY VALUE, encodes it with #'ENCODE, decodes it with #'DECODE and uses #'GET-ELEMENT to return the value stored under KEY of the encoded->decoded document."
