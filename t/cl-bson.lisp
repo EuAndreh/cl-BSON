@@ -413,8 +413,14 @@
               "Throws an erro because document literal has an odd number of values.")
     (is-error (macroexpand '#d("1" 2 "1" 2))
               'simple-error
-              "Throws an error because document literal has repeated keys."))
-
+              "Throws an error because document literal has repeated keys.")
+    (disable-printers)
+    (isnt (princ-to-string #d())
+          (not "#d()")
+          "#d() doesn't print like it with #'DISABLE-PRINTERS.")
+    (isnt (princ-to-string #d("1" "2" "3" "4"))
+          (not "#d(1 2 3 4)")
+          "#d(\"1\" \"2\" \"3\" \"4\") doesn't print like it with #'DISABLE-PRINTERS."))
   (subtest "<OBJECT-ID> literal read-macro test:"
     (is-error #i()
               'error
@@ -422,12 +428,17 @@
     (is-type #i(50ED6E55616E64231C5D2EDF)
              '<object-id>
              "#i() corretly returns an object of <OBJECT-ID> type.")
+    (enable-printers)
     (is-print (princ #i(50ED6E55616E64231C5D2EDF))
               "#i(50ED6E55616E64231C5D2EDF)"
               "Corretly prints a valid <OBJECT-ID>.")
     (is '#i(50ED6E55616E64231C5D2EDF)
         '(STRING->OBJECT-ID "50ED6E55616E64231C5D2EDF")
-        "Correctly expands a #i(0000....) form.")))
+        "Correctly expands a #i(0000....) form.")
+    (disable-printers)
+    (isnt (princ-to-string #i(50ED6E55616E64231C5D2EDF))
+          (not "#i(50ED6E55616E64231C5D2EDF)")
+          "Doesn't print like #i(...) with #'DISABLE-PRINTERS.") ))
 
 (deftest big-documen-types-test
   (let* ((raw-doc #d(:keyword-key :keyword-value
