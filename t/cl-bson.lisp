@@ -406,7 +406,11 @@
               "Throws an error because 1 is not of type string nor coercible with #'STRING.")
     (is-error (macroexpand '#d("1" 2 "3"))
               'simple-error
-              "Throws an erro because document ppliteral has an odd number of values."))
+              "Throws an erro because document literal has an odd number of values.")
+    (is-error (macroexpand '#d("1" 2 "1" 2))
+              'simple-error
+              "Throws an error because document literal has repeated keys."))
+
   (subtest "<OBJECT-ID> literal read-macro test:"
     (is-error #i()
               'error
