@@ -15,7 +15,9 @@
            keys
            make-document
            mongo-time
+           octet
            octets
+           octets-array
            options
            pattern
            remove-element
