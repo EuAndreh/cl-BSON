@@ -131,10 +131,9 @@ Check the [detailed explanation](https://groups.google.com/d/msg/bson/8g76R0cb-C
 ## TODO on documentation:
 + Add `"fork me on GitHub"` button to documentation
 + Add links to home in the documentation
-+ Add package docstrings to documentatiopn
++ Add package docstrings to documentation
 + Add (setf options) docstrings to documentation
 + Add method docstrings to documentation
-+ index.html page
 
 ## Dependencies
 This library depends on:

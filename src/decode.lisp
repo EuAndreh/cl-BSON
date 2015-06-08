@@ -143,7 +143,7 @@
 
 (defun decode-binary ()
   "Reads an @c(octets-array) and instanciates a @c(<binary-data>) object with the read data."
-  (let* ((n-bytes (fast-read-byte *bson-in*))
+  (let* ((n-bytes (octets->int32 (read-n-bytes 4)))
          (subtype (case (fast-read-byte *bson-in*)
                     (#x00 :generic)
                     (#x01 :function)
