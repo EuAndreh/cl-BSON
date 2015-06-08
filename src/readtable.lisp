@@ -48,7 +48,7 @@ If any key is repeated (tested with @cl:spec(equal) in @c(#'repeated-keys-p)), o
            ((repeated-keys-p pairs)
             (error "Repeated key(~s) in bson document literal." it))
           (t `(let ((,g!document (make-instance '<document>)))
-                ,@(mapcar (lambda (a1) `(add-element ,g!document ,(first a1) ,(second a1)))
+                ,@(mapcar #`(add-element ,g!document ,(first a1) ,(second a1))
                           pairs)
                  ,g!document)))))
 
