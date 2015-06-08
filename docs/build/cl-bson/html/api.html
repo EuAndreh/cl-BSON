@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>
+  API &ndash; cl-bson
+</title>
+    <link rel="stylesheet" href="static/style.css"/>
+    
+  <link rel="stylesheet" href="static/highlight.css"/>
+  <script src="static/highlight.js"></script>
+
+  </head>
+  <body>
+    
+  <h1 class="doc-title">cl-bson » API</h1>
+  <article>
+    <aside>
+      <ol class="toc"><li><a href="api.html">API</a></li><li><a href="bson-types.html">BSON Types</a></li><li><a href="encoding-and-decoding.html">Encoding and decoding</a></li><li><a href="readtable.html">Readtable</a></li></ol>
+    </aside>
+    <main class="codex-section">
+      <p></p><p>The main API consists of two functions: <code>encode</code> and <code>decode</code>, which is the most important functionallity you'll need to implement a MongoDB driver, like <a href="http://euandre.org/cl-mongodb">cl-mongodb</a>.</p><p>All complies with the <a href="http://bsonspec.org/">BSON spec</a>.</p><h1 id="examples">Examples</h1>
+Setting up with <a href="https://www.quicklisp.org/beta/">Quicklisp</a> and <a href="https://common-lisp.net/project/named-readtables/">Named-Readtables</a>:
+<pre><code class="lisp">* (ql:quickload :cl-bson)
+; =&gt; (:CL-BSON)
+* (in-package :cl-bson)
+; =&gt; #&lt;PACKAGE &quot;CL-BSON&quot;&gt;
+* (named-readtables:in-readtable bson-syntax)
+; =&gt; big alist of readtables...
+* (enable-printers)
+; =&gt; NIL
+* (decode (encode #d(&quot;string&quot; &quot;string&quot;
+                     &quot;double&quot; 1.5d0
+                     &quot;embedded&quot; #d(&quot;embedded&quot; &quot;document&quot;))))
+; =&gt; #d(&quot;string&quot; &quot;string&quot; &quot;double&quot; 1.5d0 &quot;embedded&quot; #d(&quot;embedded&quot; &quot;document&quot;))</code></pre>
+    </main>
+  </article>
+  <footer>
+    <div class="info">
+      Created with <a href="https://github.com/CommonDoc/codex">Codex</a>.
+    </div>
+  </footer>
+  <script>
+   HighlightLisp.highlight_auto();
+  </script>
+
+  </body>
+</html>
