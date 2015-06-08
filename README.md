@@ -132,12 +132,17 @@ hello\x00                          // field name
 
 Check the [detailed explanation](https://groups.google.com/d/msg/bson/8g76R0cb-CQ/DWdjQaS0tMMJ) of the last example.
 
-## TODO on documentation:
+## TODO
+### on documentation:
 + Add `"fork me on GitHub"` button to documentation
 + Add links to home in the documentation
 + Add package docstrings to documentation
 + Add (setf options) docstrings to documentation
 + Add method docstrings to documentation
+
+### Tests
++ Make read-print work on ccl
++ Make other implementations work on Travis
 
 ## Dependencies
 This library depends on:

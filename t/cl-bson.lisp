@@ -27,7 +27,7 @@
 
 ;; NOTE: To run this test file, execute `(asdf:test-system :cl-bson)' in your Lisp.
 
-(plan 6)
+(plan 7)
 
 (defmacro! enc-dec-kv (key value)
   "Creates a document, adds a KEY VALUE, encodes it with #'ENCODE, decodes it with #'DECODE and uses #'GET-ELEMENT to return the value stored under KEY of the encoded->decoded document."
@@ -542,5 +542,10 @@
   (is (subtype (enc-dec-kv "bin" (make-instance '<binary-data> :subtype :user-defined)))
       :user-defined
       "<BINARY-DATA> subtype is :USER-DEFINED"))
+
+(deftest bad-encoded-document-test
+  (is-error (decode (replace (encode #d("int" 2)) #(99) :start1 4))
+            'simple-error
+            "Unvalid BSON type raises an error."))
 
 (run-test-all)

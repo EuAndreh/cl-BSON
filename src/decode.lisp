@@ -130,6 +130,7 @@
                        (#x07 (decode-object-id))
                        (#x08 (decode-boolean))
                        (#x09 (decode-timestamp))
+                       #+nil ;; Never reaches here. false and null in Common Lisp are the same: nil
                        (#x0A (decode-boolean))
                        (#x0B (decode-regex))
                        (#x0D (decode-javascript))
