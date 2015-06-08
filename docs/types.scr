@@ -1,0 +1,70 @@
+@begin(section)
+@title(BSON Types)
+
+The @link[uri="http://bsonspec.org/spec.html"](BSON specification) has a few more types than the built-in Common Lisp types. @c(cl-bson) defines classes for those types.
+
+@begin(section)
+  @title(Classes and methods)
+
+  @begin(section)
+    @title(<OBJECT-ID>)
+      @cl:with-package[name="cl-bson.types"](
+        @cl:doc(class <object-id>)
+        @cl:doc(generic str)
+        @cl:doc(generic get-timestamp)
+        @cl:doc(function string->object-id)
+        @cl:doc(function generate-object-id)
+        @cl:doc(variable *object-id-counter*)
+        @cl:doc(function increment-id-counter)
+      )
+  @end(section)
+
+  @begin(section)
+    @title(<REGEX>)
+    @cl:with-package[name="cl-bson.types"](
+      @cl:doc(class <regex>)
+      @cl:doc(function setf options)
+      @cl:doc(method initialize-instance)
+    )
+  @end(section)
+
+  @begin(section)
+    @title(<BINARY-DATA>)
+    @cl:with-package[name="cl-bson.types"](
+      @cl:doc(class <binary-data>)
+      @cl:doc(method setf subtype)
+      @cl:doc(method initialize-instance)
+    )
+  @end(section)
+
+  @begin(section)
+    @title(<JAVASCRIPT>)
+    @cl:with-package[name="cl-bson.types"](
+      @cl:doc(class <javascript>)
+    )
+  @end(section)
+
+  @begin(section)
+    @title(<MONGO-TIMESTAMP>)
+    @cl:with-package[name="cl-bson.types"](
+      @cl:doc(class <mongo-timestamp>)
+      @cl:doc(function generate-mongo-timestamp)
+      @cl:doc(function increment-mongo-timestamp-counter)
+      @cl:doc(variable *mongo-timestamp-counter*)
+    )
+  @end(section)
+
+  @begin(section)
+    @title(<DOCUMENT>)
+    @cl:with-package[name="cl-bson.types"](
+      @cl:doc(class <document>)
+      @cl:doc(function make-document)
+      @cl:doc(generic add-element)
+      @cl:doc(generic get-element)
+      @cl:doc(generic remove-element)
+      @cl:doc(generic keys)
+    )
+  @end(section)
+
+@end(section)
+@end(section)
