@@ -558,9 +558,9 @@
   (is (subtype (enc-dec-kv "bin" (make-instance '<binary-data> :subtype :md5)))
       :md5
       "<BINARY-DATA> subtype is :MD5")
-  (is (subtype (enc-dec-kv "bin" (make-instance '<binary-data> :subtype :user-defined)))
-      :user-defined
-      "<BINARY-DATA> subtype is :USER-DEFINED"))
+  (is-error (make-instance '<binary-data> :subtype :invalid)
+            'simple-error
+            "<BINARY-DATA> invalid subtype throws an error."))
 
 (deftest bad-encoded-document-test
   (is-error (decode (replace (encode #d("int" 2)) #(99) :start1 4))

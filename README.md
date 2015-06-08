@@ -83,7 +83,7 @@ The main functions are `encode` and `decode`:
         "null value" NIL
         "32 bit integer" 123
         "64 bit integer" 1234567890987654321
-        "local-time:timestamp" @2015-06-08T03:01:45.734000-03:00)
+        "local-time:timestamp" @2015-06-08T09:43:14.232000-03:00)
 ```
 
 Examples from the [FAQ](http://bsonspec.org/faq.html):
@@ -154,7 +154,6 @@ Check the [detailed explanation](https://groups.google.com/d/msg/bson/8g76R0cb-C
 
 ### Tests
 + Make read-print work on ccl
-+ Make other implementations work on Travis
 
 ## Dependencies
 This library depends on:
