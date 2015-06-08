@@ -19,7 +19,7 @@
                local-time
                named-readtables
                rutils
-               #+nil trivial-shell)
+               trivial-shell)
   :components ((:module "src"
                         :components ((:file "types")
                                      (:file "readtable")

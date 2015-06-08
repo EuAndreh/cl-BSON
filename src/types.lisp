@@ -18,11 +18,9 @@
                 unix-to-timestamp)
   (:import-from rutil
                 get#
-                ;;group
+                group
                 ht-keys
                 rem#)
-  ;; Waiting form the PR to be accepted: https://github.com/gwkkwg/trivial-shell/pull/9
-  #+nil
   (:import-from trivial-shell
                 os-process-id)
   (:export <binary-data>
@@ -71,7 +69,7 @@ It also exports two custom types (@c(octet) and @c(octets-array))."))
   (setf *object-id-counter*
         (rem (1+ *object-id-counter*) #.(expt 2 24))))
 
-
+#+nil
 (defun group (n sequence)
   "Waiting for the @link[name=\"https://github.com/vseloved/rutils/pull/22\"](PR) to be accepted."
   (declare (integer n))
@@ -94,7 +92,7 @@ It also exports two custom types (@c(octet) and @c(octets-array))."))
 
           (push (subseq sequence i (+ i n)) acc)))))))
 
-
+#+nil
 (defun os-process-id ()
   "Waiting for the @link[uri=\"https://github.com/gwkkwg/trivial-shell/pull/9\"](@c(PR)) to be accepted so that I can remove this function."
   #+clisp (system::process-id)
