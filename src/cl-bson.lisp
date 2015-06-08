@@ -1,8 +1,6 @@
 (defpackage cl-bson
   (:use cl cl-bson.readtable cl-bson.types cl-bson.encode cl-bson.decode)
   (:nicknames bson)
-  (:import-from rutil
-                eval-always)
   (:export <binary-data>
            <document>
            <javascript>
@@ -16,6 +14,7 @@
            get-timestamp
            keys
            make-document
+           mongo-time
            octets
            options
            pattern
