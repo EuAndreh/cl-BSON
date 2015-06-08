@@ -8,8 +8,6 @@
                 keys
                 str
                 string->object-id)
-  (:import-from lol
-                defmacro!)
   (:import-from rutil
                 acond
                 it
@@ -38,11 +36,12 @@ Also defines @cl:spec(pprint)int behaviour (for consistent read-print equivalenc
     (if (< 1 (count (car p) pairs :key #'car :test #'equal))
         (return (car p)))))
 
-(defmacro! bson-document-literal (&rest contents)
+(defmacro bson-document-literal (&rest contents)
   "Converts the @cl:param(contents) list into pairs of @c((key value)) and makes a @c(<document>) from it. Expands in the form that create such @c(<document>).
 
 If any key is repeated (tested with @cl:spec(equal) in @c(#'repeated-keys-p)), or if @cl:param(contents) has an odd number of elements, or if @cl:param(contents) has non-string keys it throws an @cl:spec(error) at compile-time."
-  (let ((pairs (group 2 contents)))
+  (let ((pairs (group 2 contents))
+        (g!document (gensym "DOCUMENT")))
     (acond ((oddp (length contents))
             (error "Odd number of values in bson document literal."))
            ((repeated-keys-p pairs)
