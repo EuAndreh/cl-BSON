@@ -304,7 +304,7 @@
       (is-error (code javascript)
                 'error
                 "CODE slot of JAVASCRIPT is unbound by default.")
-      (is (scope javascript)
+      (is (slot-boundp javascript 'scope)
           nil
           "SCOPE slot of JAVASCRIPT is NIL by default.")))
   (subtest "subtest for <MONGO-TIMESTAMP> behaviour:"
