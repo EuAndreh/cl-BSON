@@ -110,12 +110,9 @@ In general, the functions relative to @c(encode-the-value-somehow) converts the 
   "Gets @cl:param(value) sequence and encodes it as a document. Each element gets a index as a key to create the document."
   (fast-write-byte #x04 *bson-out*)
   (encode-cstring key)
-  (let ((kv-array-document #d())
-        (index -1))
-    (map 'nil (lambda (element)
-                (add-element kv-array-document (princ-to-string (incf index)) element))
-         value)
-    (encode-document (elements kv-array-document))))
+  (let ((kv-array-document #d()))
+    (dotimes (index (length value) (encode-document (elements kv-array-document)))
+      (add-element kv-array-document (princ-to-string index) (elt value index)))))
 
 (defmethod encode-key-value (key (value list))
   "Dispatches to @c(#'encode-document-array)."
