@@ -18,7 +18,6 @@
                 defmacro!)
   (:import-from named-readtables
                 in-readtable)
-  #+nil
   (:import-from trivial-shell
                 os-process-id)
   (:use cl prove cl-bson))
@@ -219,7 +218,7 @@
           :test #'equalp
           "MACHINE-INSTANCE identifier is #'EQUALP to bytes 4 to 7 in the generated OBJ-ID-BYTES.")
       (is (subseq obj-id-bytes 7 9)
-          (-> (cl-bson.types::os-process-id)
+          (-> (os-process-id)
             int32->octets
             (subseq 0 2))
           :test #'equalp

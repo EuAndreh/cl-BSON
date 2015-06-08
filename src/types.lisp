@@ -263,7 +263,7 @@ Check the @link[uri=\"http://docs.mongodb.org/manual/reference/bson-types/#objec
    (scope :accessor scope
           :initarg :scope
           :initform nil
-          :type <document>
+          ;;:type <document>
           :documentation "This slot holds a @c(<document>) that represents the scope in which the string should be evaluated. The @c(<document>) is a mapping from identifiers to values."))
   (:documentation "This class puts together two BSON types: \"JavaScript code\" and \"Code with scope\". When the @cl:param(scope) slot is @c(nil) (default), a @c(<javascript>) object gets encoded as \"JavaScript code\". When the @cl:param(scope) slot is not @c(nil), @c(<javascript>) gets encoded as \"Code with scope\"."))
 
