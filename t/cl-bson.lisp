@@ -522,43 +522,4 @@
              'timestamp
              "local-time:timestamp in document is a TIMESTAMP.")))
 
-;;(finalize)
 (run-test-all)
-
-
-
-
-
-
-(defparameter raw-doc #d(:keyword-key :keyword-value
-                     'symbol-key 'symbol-value
-                     "string-key" "string-value"
-                     "will be coerced to double" 1.5
-                     "will stay as double" 1.5d0
-
-                     "embedded document"
-                     #d("with many"
-                        #d("levels of"
-                           #d("nesting"
-                              #d("with another \"embedded document\": a vector" #(1 2 3)))))
-
-                     "sequence" #(1 2 3)
-                     "vector" #(1 2 3)
-                     "list" '(1 2 3)
-                     "regex" (make-instance '<regex> :pattern "\\d+" :options "i")
-                     "binary data" (make-instance
-                                    '<binary-data>
-                                    :octets (fast-io:make-octet-vector 10))
-                     "javascript code" (make-instance '<javascript>
-                                                      :code "var example = 1;")
-                     "javascript code with scope" (make-instance
-                                                   '<javascript>
-                                                   :code "var example = inScope;"
-                                                   :scope #d("inScope" 10))
-                     "object-id" (make-instance '<object-id>)
-                     "boolean true" t
-                     "boolean false" nil
-                     "null value" nil
-                     "32 bit integer" 123
-                     "64 bit integer" 1234567890987654321
-                     "local-time:timestamp" (local-time:now)))
