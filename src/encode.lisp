@@ -35,7 +35,8 @@
                 timestamp-to-unix)
   (:import-from named-readtables
                 in-readtable)
-  (:export encode)
+  (:export *bson-out*
+           encode)
   (:documentation "This package defines the main function (@c(#'encode)) for actually converting a @c(<document>) object to @c(octets-array) and many helper functions for internal use. @c(*bson-out*) gets bound to a @c(fast-io:output-buffer) in the first to of @c(#'encode)."))
 (in-package cl-bson.encode)
 (in-readtable bson-syntax)

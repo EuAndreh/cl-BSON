@@ -29,6 +29,7 @@
            <mongo-timestamp>
            <object-id>
            <regex>
+           *allowed-regex-options*
            add-element
            code
            elements
@@ -48,9 +49,7 @@
            str
            string->object-id
            remove-element)
-  (:documentation "This package defines the following BSON types/classes: @c(<binary-data>), @c(<document>), @c(<javascript>), @c(<mongo-timestamp>), @c(<object-id>) and @cO<regex>). It exports all classes slot accessors symbols and classes symbols.
-
-It also exports two custom types (@c(octet) and @c(octets-array))."))
+  (:documentation ""))
 (in-package cl-bson.types)
 
 (deftype octet ()
@@ -217,12 +216,16 @@ Check the @link[uri=\"http://docs.mongodb.org/manual/reference/bson-types/#objec
             :documentation "This slot holds the options of the @c(<regex>) object as an alphabetically sorted @i(string). Options are identified by by characters. Valid options are: 'i' for case insensitive matching, 'm' for multiline matching, 'x' for verbose mode, 'l' to make \\w, \\W, etc. locale dependent, 's' for dotall mode ('.' matches everything), and 'u' to make \\w, \\W, etc. match unicode"))
   (:documentation "This class is used to represent regexps in the BSON document."))
 
+(defvar *allowed-regex-options* '(#\i #\l #\m #\s #\u #\w #\x)
+  "List of charaters allowed in the @c(options) slot of a @c(<regex>) object.")
+
 (defgeneric (setf options) (regex options)
   (:documentation "Checks if the @cl:param(options) string contains any invalid characters and, if not, sorts them alphabetically before @c(setf)ing. Otherwise, throws an @cl:spec(error).")
   (:method ((options string) (regex <regex>))
     (unless (subsetp (coerce options 'list)
-                     '(#\i #\l #\m #\s #\u #\w #\x))
-      (error "Invalid regex option characters in: ~s" (options regex)))
+                     *allowed-regex-options*)
+      (error "Invalid regex option characters in: ~s. Allowed options are: ~s"
+             (options regex) *allowed-regex-options*))
     (setf (slot-value regex 'options)
           (sort (remove-duplicates options :test #'char=) #'char<))))
 

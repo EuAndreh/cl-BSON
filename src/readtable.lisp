@@ -1,19 +1,28 @@
 (defpackage cl-bson.readtable
   (:use cl)
+  (:import-from arrow-macros
+                ->)
   (:import-from cl-bson.types
                 <document>
                 <object-id>
+                <regex>
+                *allowed-regex-options*
                 add-element
                 get-element
                 keys
+                options
+                pattern
                 str
                 string->object-id)
   (:import-from lol
                 defmacro!)
   (:import-from rutil
                 acond
+                aif
                 it
-                group)
+                group
+                last1
+                substr)
   (:import-from named-readtables
                 defreadtable
                 in-readtable)
@@ -23,7 +32,8 @@
            disable-printers
            enable-bson-document-printer
            enable-object-id-printer
-           enable-printers)
+           enable-printers
+           repeated-keys-p)
   (:documentation "Package for optional BSON read-print functionality. Uses @link[uri=\"https://common-lisp.net/project/named-readtables/\"](named-readtables) for @cl:spec(*readtable*) manipulation.
 
 Defines read-macros for @c(#d()) (literal @c(<document>)) and for @c(#i()) (literal @c(<document>)).
@@ -62,6 +72,20 @@ If any key is repeated (tested with @cl:spec(equal) in @c(#'repeated-keys-p)), o
   (declare (ignore char numarg))
   `(string->object-id ,(princ-to-string (car (read stream)))))
 
+(defun regexp-reader (stream char numarg)
+  "@c(<regex>) literal reader function."
+  (declare (ignore char numarg))
+  (let ((pattern (-> (loop for x = (read-char stream) then (read-char stream)
+                        collect x until (eql x #\/))
+                   (coerce 'string)
+                   (substr 0 -1)))
+        (options (-> (loop for x = (read-char stream) then (read-char stream)
+                        collect x until (not (alpha-char-p x))
+                        finally (unread-char x stream))
+                   (coerce 'string)
+                   (substr 0 -1))))
+    `(make-instance '<regex> :pattern ,pattern :options ,options)))
+
 (defun pprint-bson-document (*standard-output* document)
   "Pprints a given @cl:param(document) in the @c(#d(key value)) format. Stablishes read-print-equivalence for @c(<document>) objects."
   (pprint-logical-block (*standard-output* nil :prefix "#d(" :suffix ")")
@@ -85,6 +109,13 @@ If any key is repeated (tested with @cl:spec(equal) in @c(#'repeated-keys-p)), o
   (pprint-logical-block (*standard-output* nil :prefix "#i(" :suffix ")")
     (princ (str object-id))))
 
+(defun pprint-regex (*standard-output* regex)
+  "Pprints a given @cl:param(regex>) int.."
+  (pprint-logical-block (*standard-output* nil :prefix "#/")
+    (princ (pattern regex))
+    (princ "/")
+    (princ (options regex))))
+
 (defun enable-bson-document-printer ()
   "Enable pprinter for @c(<document>) objects."
   (set-pprint-dispatch '<document> 'pprint-bson-document))
@@ -93,10 +124,15 @@ If any key is repeated (tested with @cl:spec(equal) in @c(#'repeated-keys-p)), o
   "Enable pprinter for @c(<object-id>) objects."
   (set-pprint-dispatch '<object-id> 'pprint-object-id))
 
+(defun enable-regex-printer ()
+  "Enable pprint for @c(<regex>) objects."
+  (set-pprint-dispatch '<regex> 'pprint-regex))
+
 (defun enable-printers ()
   "Enables pprinter for both @c(<document>) and @c(<object-id>) objects."
   (enable-bson-document-printer)
-  (enable-object-id-printer))
+  (enable-object-id-printer)
+  (enable-regex-printer))
 
 (defun disable-bson-document-printer ()
   "Disables the pprinter for @c(<document>) objects."
@@ -106,12 +142,18 @@ If any key is repeated (tested with @cl:spec(equal) in @c(#'repeated-keys-p)), o
   "Disables the pprinter for @c(<object-id>) objects."
   (set-pprint-dispatch '<object-id> nil))
 
+(defun disable-regex-printer ()
+  "Disable the pprinter for @c(<regex>) objects."
+  (set-pprint-dispatch '<regex> nil))
+
 (defun disable-printers ()
   "Disables pprinter for @c(<document>) and @c(<object-id>) objects."
   (disable-bson-document-printer)
-  (disable-object-id-printer))
+  (disable-object-id-printer)
+  (disable-regex-printer))
 
 (defreadtable bson-syntax
   (:merge :standard)
+  (:dispatch-macro-char #\# #\/ #'regexp-reader)
   (:dispatch-macro-char #\# #\d #'bson-document-reader)
   (:dispatch-macro-char #\# #\i #'object-id-reader))
