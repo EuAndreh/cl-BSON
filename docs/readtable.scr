@@ -1,6 +1,8 @@
 @begin(section)
 @title(Readtable)
 
+All of them are just optional. If you don't like, feel free to not use it =]
+
 @begin(section)
 @title(Printer)
   @cl:with-package[name="cl-bson.readtable"](

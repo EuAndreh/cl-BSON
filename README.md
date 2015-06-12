@@ -37,7 +37,7 @@ The main functions are `encode` and `decode`:
              "sequence" #(1 2 3)
              "vector" #(1 2 3)
              "list" '(1 2 3)
-             "regex" (make-instance '<regex> :pattern "\\d+" :options "i")
+             "regex" #/\d+/i 
              "binary data" (make-instance '<binary-data>
                                           :octets (fast-io:make-octet-vector 10))
              "javascript code" (make-instance '<javascript> :code "var example = 1;")
@@ -74,7 +74,7 @@ The main functions are `encode` and `decode`:
         "sequence" #(1 2 3)
         "vector" #(1 2 3)
         "list" #(1 2 3)
-        "regex" #<<REGEX> {100D000183}>
+        "regex" #/\d+/i
         "binary data" #<<BINARY-DATA> {100D002AF3}>
         "javascript code" #<<JAVASCRIPT> {100D074A43}>
         "javascript code with scope" #<<JAVASCRIPT> {100D0E5613}>

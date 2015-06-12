@@ -48,6 +48,7 @@ Also defines @cl:spec(pprint)int behaviour (for consistent read-print equivalenc
     (if (< 1 (count (car p) pairs :key #'car :test #'equal))
         (return (car p)))))
 
+
 (defmacro! bson-document-literal (&rest contents)
   "Converts the @cl:param(contents) list into pairs of @c((key value)) and makes a @c(<document>) from it. Expands in the form that create such @c(<document>).
 
@@ -72,11 +73,17 @@ If any key is repeated (tested with @cl:spec(equal) in @c(#'repeated-keys-p)), o
   (declare (ignore char numarg))
   `(string->object-id ,(princ-to-string (car (read stream)))))
 
+(defvar *regex-literal-delimiter* #\/
+  "Limiter character used for @c(<regex>) objects literals.")
+
 (defun regexp-reader (stream char numarg)
   "@c(<regex>) literal reader function."
   (declare (ignore char numarg))
   (let ((pattern (-> (loop for x = (read-char stream) then (read-char stream)
-                        collect x until (eql x #\/))
+                        collect x into chars
+                        until (and (eql x #\/)
+                                   (not (eql (last1 chars 2) #\\)))
+                        finally (return chars))
                    (coerce 'string)
                    (substr 0 -1)))
         (options (-> (loop for x = (read-char stream) then (read-char stream)
