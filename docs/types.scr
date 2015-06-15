@@ -3,10 +3,10 @@
 
 The @link[uri="http://bsonspec.org/spec.html"](BSON specification) has a few more types than the built-in Common Lisp types. @c(cl-bson) defines classes for those types.
 
-This package defines the following BSON types/classes:
+The @c(cl-bson.readtable) package defines the following BSON types/classes:
 @begin(list)
 @item(@c(<binary-data>) for representing any subtype of the BSON binary data. LINK)
-@item(@c(<document>) main class for encoding/decoding. The @c(<document>) class is a simple wrapper around a @c(hash-table) with custom methods.)
+@item(@c(<document>) main class for encoding/decoding. The @c(<document>) class is a wrapper around a @c(hash-table) with custom methods.)
 @item(@c(<javascript>) for representing both "JavaScript code" (@c(#x??)) and "JavaScript code with scope" (@c(#x!!)). The @c(<javascript>) class has two slots, @c(code) and @c(scope), so the @c(<javascript>) object will behave differently if the @c(scope) slot is bound or not.)
 @item(@c(<mongo-timestamp>) for representing Timestamp LINK that MongoDB uses internally.)
 @item(@c(<object-id>) for representing the MongoDB ObjectId. LINK)

@@ -4,6 +4,35 @@
 All of them are just optional. If you don't like, feel free to not use it =]
 
 @begin(section)
+@title(Usage)
+@code[lang=lisp](* (make-instance '<regex> :pattern "^abc$" :options "i")
+; => #<<REGEX> {10095EF1B3}>
+* (make-instance '<object-id>)
+; => #<<OBJECT-ID> {100980C5F3}>
+* (make-document)
+; => #<<DOCUMENT> {1009224253}>
+
+* (enable-printers)
+; => NIL
+* (make-instance '<regex> :pattern "^abc$" :options "i")
+; => #/^abc$/i
+* (make-instance '<object-id>)
+; => #i(9F5C7F55616E64310C666D00)
+* (make-document)
+; => #d("_id" #i(835C7F55616E64310C656D00))
+
+* (named-readtables:in-readtable bson-syntax)
+; => big readtables alist
+* #/asdf/li
+; => #/asdf/il
+* #i(835C7F55616E64310C656D00)
+; => #i(835C7F55616E64310C656D00)
+* #d("my" "doc")
+; => #d("my" "doc")
+)
+@end(section)
+
+@begin(section)
 @title(Printer)
   @cl:with-package[name="cl-bson.readtable"](
     @cl:doc(function pprint-bson-document)
@@ -13,18 +42,14 @@ All of them are just optional. If you don't like, feel free to not use it =]
     @cl:doc(function enable-printers)
     @cl:doc(function disable-bson-document-printer)
     @cl:doc(function disable-object-id-printer)
-    @cl:doc(function disable-printers)
-  )
+    @cl:doc(function disable-printers))
 @end(section)
-
 @begin(section)
-@title(reader)
+@title(Reader)
   @cl:with-package[name="cl-bson.readtable"](
     @cl:doc(function bson-document-reader)
     @cl:doc(function object-id-reader)
     @cl:doc(macro bson-document-literal)
-    @cl:doc(function repeated-keys-p)
-  )
-
+    @cl:doc(function repeated-keys-p))
 @end(section)
 @end(section)

@@ -1,5 +1,5 @@
 (defsystem cl-bson
-  :name "cl-bson"
+  :name "cl-BSON"
   :version "0.1.0"
   :author "André Miranda"
   :maintainer "André Miranda"

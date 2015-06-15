@@ -1,5 +1,5 @@
 (defsystem cl-bson-test
-  :name "cl-bson-test"
+  :name "cl-BSON-test"
   :version "0.1.0"
   :author "André Miranda"
   :maintainer "André Miranda"
@@ -8,7 +8,7 @@
   :bug-tracker "https://github.com/EuAndreh/cl-bson/issues"
   :source-control (:git "git@github.com:EuAndreh/cl-bson.git")
   :license "LLGPL"
-  :description "Test system for cl-bson."
+  :description "Test system for cl-BSON."
   :depends-on (cl-bson
                prove)
   :components ((:module "t"

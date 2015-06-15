@@ -12,7 +12,8 @@
                 <object-id>
                 <regex>
                 add-element
-                elements)
+                elements
+                octets-array)
   (:import-from cl-intbytes
                 octets->int32
                 octets->int64)
@@ -31,7 +32,11 @@
   (:import-from rutil
                 ht-vals)
   (:export decode
-           *bson-sequence-type*)
+           *bson-in*
+           *bson-sequence-type*
+           decode-int32
+           decode-int64
+           read-n-bytes)
   (:documentation "This package defines the main function (@c(#'decode)) for converting an @c(octets-array) to BSON @c(<document>)s many helper functions for internal use."))
 (in-package cl-bson.decode)
 
@@ -165,6 +170,7 @@
     (case *bson-sequence-type*
       (list values)
       ((array vector) (coerce values 'vector)))))
+
 
 (defun decode (octets-array)
   "Main entry point to decode a given array. It performs the first binding of @c(*doc-out*) and call @c(#'decode-document)."
