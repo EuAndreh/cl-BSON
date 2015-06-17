@@ -1,0 +1,154 @@
+@begin(section)
+@title(API)
+
+@cl:doc(package cl-bson)
+
+@begin(section)
+@title(Main API)
+@cl:with-package[name="cl-bson.encode"](@cl:doc(generic encode))
+@cl:with-package[name="cl-bson.decode"](@cl:doc(function decode))
+@end(section)
+@end(section)
+
+@begin(section)
+@title(BSON Types)
+
+@cl:doc(package cl-bson.types)
+
+@begin(section)
+  @title(Classes and methods)
+
+  @begin(section)
+    @title(<OBJECT-ID>)
+    @cl:with-package[name="cl-bson.types"](
+      @cl:doc(class <object-id>)
+      @cl:doc(generic str)
+      @cl:doc(generic get-timestamp)
+      @cl:doc(function string->object-id)
+      @cl:doc(function generate-object-id)
+      @cl:doc(variable *object-id-counter*)
+      @cl:doc(function increment-id-counter)
+    )
+  @end(section)
+
+  @begin(section)
+    @title(<REGEX>)
+    @cl:with-package[name="cl-bson.types"](
+      @cl:doc(class <regex>)
+      @cl:doc(function setf options)
+      @cl:doc(method initialize-instance)
+    )
+  @end(section)
+
+  @begin(section)
+    @title(<BINARY-DATA>)
+    @cl:with-package[name="cl-bson.types"](
+      @cl:doc(class <binary-data>)
+      @cl:doc(method setf subtype)
+      @cl:doc(method initialize-instance)
+    )
+  @end(section)
+
+  @begin(section)
+    @title(<JAVASCRIPT>)
+    @cl:with-package[name="cl-bson.types"](
+      @cl:doc(class <javascript>)
+    )
+  @end(section)
+
+  @begin(section)
+    @title(<MONGO-TIMESTAMP>)
+    @cl:with-package[name="cl-bson.types"](
+      @cl:doc(class <mongo-timestamp>)
+      @cl:doc(function generate-mongo-timestamp)
+      @cl:doc(function increment-mongo-timestamp-counter)
+      @cl:doc(variable *mongo-timestamp-counter*)
+    )
+  @end(section)
+
+  @begin(section)
+    @title(<DOCUMENT>)
+    @cl:with-package[name="cl-bson.types"](
+      @cl:doc(class <document>)
+      @cl:doc(function make-document)
+      @cl:doc(generic add-element)
+      @cl:doc(generic get-element)
+      @cl:doc(generic remove-element)
+      @cl:doc(generic keys)
+    )
+  @end(section)
+
+@end(section)
+@end(section)
+
+@begin(section)
+@title(Encoding and decoding)
+
+@begin(section)
+  @title(Encoding)
+
+  @cl:doc(package cl-bson.encode)
+
+  @cl:with-package[name="cl-bson.encode"](
+    @cl:doc(generic encode)
+    @cl:doc(generic encode-key-value)
+    @cl:doc(function encode-document)
+    @cl:doc(function encode-cstring)
+    @cl:doc(function encode-string)
+    @cl:doc(function encode-document-array)
+    @cl:doc(function encode-boolean)
+    @cl:doc(function encode-int32)
+    @cl:doc(function encode-int64)
+  )
+
+  @end(section)
+
+@begin(section)
+  @title(Decoding)
+
+  @cl:doc(package cl-bson.decode)
+
+  @cl:with-package[name="cl-bson.decode"](
+    @cl:doc(function decode)
+    @cl:doc(variable *bson-in*)
+    @cl:doc(variable *doc-out*)
+    @cl:doc(function decode-key-value)
+    @cl:doc(function decode-timestamp)
+    @cl:doc(function decode-sequence)
+    @cl:doc(variable *bson-sequence-type*)
+    @cl:doc(function decode-binary)
+    @cl:doc(function decode-javascript)
+    @cl:doc(function decode-javascript-w/scope)
+    @cl:doc(function decode-regex)
+    @cl:doc(function decode-document)
+  )
+@end(section)
+@end(section)
+
+
+@begin(section)
+@title(Readtable)
+
+@cl:doc(package cl-bson.readtable)
+
+@begin(section)
+@title(Printer)
+  @cl:with-package[name="cl-bson.readtable"](
+    @cl:doc(function pprint-bson-document)
+    @cl:doc(function pprint-object-id)
+    @cl:doc(function enable-bson-document-printer)
+    @cl:doc(function enable-object-id-printer)
+    @cl:doc(function enable-printers)
+    @cl:doc(function disable-bson-document-printer)
+    @cl:doc(function disable-object-id-printer)
+    @cl:doc(function disable-printers))
+@end(section)
+@begin(section)
+@title(Reader)
+  @cl:with-package[name="cl-bson.readtable"](
+    @cl:doc(function bson-document-reader)
+    @cl:doc(function object-id-reader)
+    @cl:doc(macro bson-document-literal)
+    @cl:doc(function repeated-keys-p))
+@end(section)
+@end(section)

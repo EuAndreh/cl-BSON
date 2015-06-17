@@ -1,2 +1,1 @@
-[Documentation](/cl-bson/api.html)
- 
+[Documentation](api.html)
