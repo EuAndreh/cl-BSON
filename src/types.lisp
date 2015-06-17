@@ -85,12 +85,25 @@ It also exports two custom types: @c(octet) and @c(octets-array)."))
 
 (defun group (n sequence)
   "Waiting for the @link[name=\"https://github.com/vseloved/rutils/pull/22\"](PR) to be accepted."
-  (do ((i 0 (+ i n))
-       (len (length sequence))
-       (acc nil))
-      ((>= (+ i n) len)
-       (nreverse (push (subseq sequence i) acc)))
-    (push (subseq sequence i (+ i n)) acc)))
+  (declare (integer n))
+  (when (zerop n)
+    (error "Group length N shouldn't be zero."))
+  (labels ((rec (src acc)
+              (let ((rest (nthcdr n src)))
+                (if (consp rest)
+                    (rec rest (cons (subseq src 0 n) acc))
+                    (nreverse (cons src acc))))))
+    (when sequence
+     (etypecase sequence
+       (list (rec sequence nil))
+       (sequence
+        (do ((i 0 (+ i n))
+             (len (length sequence))
+             (acc nil))
+            ((>= (+ i n) len)
+             (nreverse (push (subseq sequence i) acc)))
+
+          (push (subseq sequence i (+ i n)) acc)))))))
 
 (defun os-process-id ()
   "Waiting for the @link[uri=\"https://github.com/gwkkwg/trivial-shell/pull/9\"](@c(PR)) to be accepted so that I can remove this function."
