@@ -188,8 +188,7 @@ To run all the defined tests, use:
 ; prints lots of (colorful) stuff...
 ; => T
 ```
-
-Tests are ran with [Travis CI](https://travis-ci.org/EuAndreh/cl-bson) using [cl-travis](https://github.com/luismbo/cl-travis) and [CIM](https://github.com/KeenS/CIM). Check it out!
+Tests are ran with [Travis CI](https://travis-ci.org/EuAndreh/cl-bson) and [Circle CI](https://circleci.com/gh/EuAndreh/cl-bson) using [cl-travis](https://github.com/luismbo/cl-travis), [CIM](https://github.com/KeenS/CIM), [cl-coveralls](https://github.com/fukamachi/cl-coveralls) and [Roswell](https://github.com/snmsts/roswell). Check it out!
 
 ## Author
 + [André Miranda](https://github.com/EuAndreh)

@@ -20,7 +20,8 @@
                 get#
                 group
                 ht-keys
-                rem#)
+                rem#
+                strcat)
   (:import-from trivial-shell
                 os-process-id)
   (:export <binary-data>
@@ -103,7 +104,7 @@
   (error "Impossible to determine the PID"))
 
 (defun generate-object-id ()
-  "Generates a fresh 12 bytes @c(OCTETS-ARRAY) for an @c(<object-id>).
+  "Generates a fresh 12 bytes @c(octets-array) for an @c(<object-id>).
 
 A typical array looks like:
 @code[lang=lisp](* (generate-object-id)
@@ -135,9 +136,13 @@ A typical array looks like:
   (let ((unix-epoch (-> (now)
                       timestamp-to-unix
                       int32->octets))
-        (machine-identifier (-> (machine-instance)
-                              (string-to-octets :encoding :utf-8)
-                              (subseq 0 3)))
+        (machine-identifier (string-to-octets (let* ((name (machine-instance))
+                                                     (len (length name)))
+                                                (if (>= len 3)
+                                                    name
+                                                    (dotimes (i (- 3 len) name)
+                                                      (setf name (strcat name "_")))))
+                                              :encoding :utf-8))
         (pid (-> (os-process-id)
                int32->octets
                (subseq 0 2)))

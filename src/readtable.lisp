@@ -22,6 +22,7 @@
                 it
                 group
                 last1
+                strcat
                 substr)
   (:import-from named-readtables
                 defreadtable
@@ -63,9 +64,13 @@ If any key is repeated (tested with @cl:spec(equal) in @c(#'repeated-keys-p)), o
                  ,g!document)))))
 
 (defun bson-document-reader (stream char numarg)
-  "@c(<document>) literal reader function. Reads in a form as a @c(#'bson-document-literal) form."
+  "@c(<document>) literal reader function. Reads in a form as a @c(#'bson-document-literal) form. Escapes any symbol that starts with @c($)."
   (declare (ignore char numarg))
-  `(bson-document-literal ,@(read stream)))
+  (let ((*readtable* (copy-readtable *readtable* nil)))
+    (set-macro-character #\$ (lambda (stream char)
+                               (declare (ignore char))
+                               (strcat "$" (string-downcase (read stream)))))
+    `(bson-document-literal ,@(read stream))))
 
 (defun object-id-reader (stream char numarg)
   "@c(<object-id>) literal reader function. Converts the symbol inside the form into an @c(<object-id>) using @c(#'string->object-id)."
