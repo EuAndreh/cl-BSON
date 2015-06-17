@@ -151,7 +151,7 @@ A typical array looks like:
         (machine-identifier (string-to-octets (let* ((name (machine-instance))
                                                      (len (length name)))
                                                 (if (>= len 3)
-                                                    name
+                                                    (subseq name 0 3)
                                                     (dotimes (i (- 3 len) name)
                                                       (setf name (strcat name "_")))))
                                               :encoding :utf-8))
