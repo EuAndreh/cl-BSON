@@ -35,11 +35,43 @@
            enable-object-id-printer
            enable-printers
            repeated-keys-p)
+
   (:documentation "Package for optional BSON read-print functionality. Uses @link[uri=\"https://common-lisp.net/project/named-readtables/\"](named-readtables) for @cl:spec(*readtable*) manipulation.
 
 Defines read-macros for @c(#d()) (literal @c(<document>)) and for @c(#i()) (literal @c(<document>)).
 
-Also defines @cl:spec(pprint)int behaviour (for consistent read-print equivalence) for @c(#d()) and @c(#i()) read-macros in the @c(bson-syntax) readtable."))
+Also defines @cl:spec(pprint)int behaviour (for consistent read-print equivalence) for @c(#d()) and @c(#i()) read-macros in the @c(bson-syntax) readtable.
+
+All of them are just optional. If you don't like, feel free to not use it =]
+
+@begin(section)
+@title(Usage)
+@code[lang=lisp](* (make-instance '<regex> :pattern \"^abc$\" :options \"i\")
+; => #/^abc$/i
+* (make-instance '<object-id>)
+; => #i(90E08055616E64726568310C67E3D1)
+* (make-document)
+; => #d(\"_id\" #i(9CE08055616E64726568310C68E3D1))
+
+* (enable-printers)
+; => NIL
+* (make-instance '<regex> :pattern \"^abc$\" :options \"i\")
+; => #/^abc$/i
+* (make-instance '<object-id>)
+; => #i(B4E08055616E64726568310C69E3D1)
+* (make-document)
+; => #d(\"_id\" #i(B8E08055616E64726568310C6AE3D1))
+
+* (named-readtables:in-readtable bson-syntax)
+; big alist of readtables
+* #/asdf/li
+; => #/asdf/il
+* #i(B4E08055616E64726568310C69E3D1)
+; => #i(B4E08055616E64726568310C69E3D1)
+* #d(\"my\" \"doc\")
+; => #d(\"my\" \"doc\")
+)
+@end(section)"))
 (in-package cl-bson.readtable)
 (in-readtable lol:lol-syntax)
 

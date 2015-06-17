@@ -50,7 +50,21 @@
            str
            string->object-id
            remove-element)
-  (:documentation ""))
+  (:documentation "The @link[uri=\"http://bsonspec.org/spec.html\"](BSON specification) has a few more types than the built-in Common Lisp types. @c(cl-bson) defines classes for those types.
+
+The @c(cl-bson.readtable) package defines the following BSON types/classes:
+@begin(list)
+@item(@c(<binary-data>) for representing any subtype of the BSON binary data. LINK)
+@item(@c(<document>) main class for encoding/decoding. The @c(<document>) class is a wrapper around a @c(hash-table) with custom methods.)
+@item(@c(<javascript>) for representing both \"JavaScript code\" (@c(#x??)) and \"JavaScript code with scope\" (@c(#x!!)). The @c(<javascript>) class has two slots, @c(code) and @c(scope), so the @c(<javascript>) object will behave differently if the @c(scope) slot is bound or not.)
+@item(@c(<mongo-timestamp>) for representing Timestamp LINK that MongoDB uses internally.)
+@item(@c(<object-id>) for representing the MongoDB ObjectId. LINK)
+@item(@c(<regex>) for representing a regular expression in the document. The @c(<regex>) class has two slots: the actual @c(pattern) and some @c(options).)
+@end(list)
+
+It exports all classes slot accessors symbols and classes symbols.
+
+It also exports two custom types: @c(octet) and @c(octets-array)."))
 (in-package cl-bson.types)
 
 (deftype octet ()
@@ -69,7 +83,6 @@
   (setf *object-id-counter*
         (rem (1+ *object-id-counter*) #.(expt 2 24))))
 
-#+nil
 (defun group (n sequence)
   "Waiting for the @link[name=\"https://github.com/vseloved/rutils/pull/22\"](PR) to be accepted."
   (declare (integer n))
@@ -92,7 +105,6 @@
 
           (push (subseq sequence i (+ i n)) acc)))))))
 
-#+nil
 (defun os-process-id ()
   "Waiting for the @link[uri=\"https://github.com/gwkkwg/trivial-shell/pull/9\"](@c(PR)) to be accepted so that I can remove this function."
   #+clisp (system::process-id)

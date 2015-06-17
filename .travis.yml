@@ -20,8 +20,6 @@ matrix:
 install:
   - curl https://raw.githubusercontent.com/luismbo/cl-travis/master/install.sh | sh;
   - git clone https://github.com/EuAndreh/cl-intbytes.git   # wait until in Quicklisp
-  - git clone https://github.com/EuAndreh/trivial-shell.git # wait for the PR to be accepted
-  - git clone https://github.com/EuAndreh/rutils.git        # wait for the PR to be acceptec
 
 script:
   - cl -l prove -l cl-coveralls -l cl-bson

@@ -1,36 +1,7 @@
 @begin(section)
 @title(Readtable)
 
-All of them are just optional. If you don't like, feel free to not use it =]
-
-@begin(section)
-@title(Usage)
-@code[lang=lisp](* (make-instance '<regex> :pattern "^abc$" :options "i")
-; => #<<REGEX> {10095EF1B3}>
-* (make-instance '<object-id>)
-; => #<<OBJECT-ID> {100980C5F3}>
-* (make-document)
-; => #<<DOCUMENT> {1009224253}>
-
-* (enable-printers)
-; => NIL
-* (make-instance '<regex> :pattern "^abc$" :options "i")
-; => #/^abc$/i
-* (make-instance '<object-id>)
-; => #i(9F5C7F55616E64310C666D00)
-* (make-document)
-; => #d("_id" #i(835C7F55616E64310C656D00))
-
-* (named-readtables:in-readtable bson-syntax)
-; => big readtables alist
-* #/asdf/li
-; => #/asdf/il
-* #i(835C7F55616E64310C656D00)
-; => #i(835C7F55616E64310C656D00)
-* #d("my" "doc")
-; => #d("my" "doc")
-)
-@end(section)
+@cl:doc(package cl-bson.readtable)
 
 @begin(section)
 @title(Printer)

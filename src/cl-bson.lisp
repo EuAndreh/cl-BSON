@@ -39,4 +39,28 @@
            enable-bson-document-printer
            enable-object-id-printer
            enable-printers)
-  (:documentation "This package exports all the symbols of `cl-bson` API. See documentation at http://euandreh.org/cl-bson for usage, tutorial and examples."))
+  (:documentation "The main API consists of two functions: @c(encode) and @c(decode), which are the most important functionallity you'll need to implement a MongoDB driver, like @link[uri=\"http://euandre.org/cl-MongoDB\"](cl-MongoDB).
+
+All complies with the @link[uri=\"http://bsonspec.org/\"](BSON spec).
+
+@begin(section)
+@title(Examples)
+Setting up with @link[uri=\"https://www.quicklisp.org/beta/\"](Quicklisp) and @link[uri=\"https://common-lisp.net/project/named-readtables/\"](Named-Readtables):
+@code[lang=lisp](* (ql:quickload :cl-bson)
+; => (:CL-BSON)
+* (in-package :cl-bson)
+; => #<PACKAGE \"CL-BSON\">
+* (named-readtables:in-readtable bson-syntax)
+; => big alist of readtables...
+* (enable-printers)
+; => NIL
+* (decode (encode #d(\"string\" \"string\"
+                     \"double\" 1.5d0
+                     \"embedded\" #d(\"embedded\" \"document\"))))
+; => #d(\"string\" \"string\" \"double\" 1.5d0 \"embedded\" #d(\"embedded\" \"document\"))
+* (encode #d(\"my\" \"document\"))
+; => #.(swank:lookup-presented-object-or-lose 36.)
+* (decode *)
+; => #.(swank:lookup-presented-object-or-lose 37.)
+)
+@end(section)"))

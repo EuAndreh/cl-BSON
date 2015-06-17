@@ -1,37 +1,12 @@
 @begin(section)
 @title(API)
 
-The main API consists of two functions: @c(encode) and @c(decode), which are the most important functionallity you'll need to implement a MongoDB driver, like @link[uri="http://euandre.org/cl-mongodb"](cl-mongodb).
-
-All complies with the @link[uri="http://bsonspec.org/"](BSON spec).
-
-@cl:with-package[name="cl-bson.encode"](
-  @cl:doc(generic encode)
-)
-@cl:with-package[name="cl-bson.decode"](
-  @cl:doc(function decode)
-)
+@cl:doc(package cl-bson)
 
 @begin(section)
-@title(Examples)
-Setting up with @link[uri="https://www.quicklisp.org/beta/"](Quicklisp) and @link[uri="https://common-lisp.net/project/named-readtables/"](Named-Readtables):
-@code[lang=lisp](* (ql:quickload :cl-bson)
-; => (:CL-BSON)
-* (in-package :cl-bson)
-; => #<PACKAGE "CL-BSON">
-* (named-readtables:in-readtable bson-syntax)
-; => big alist of readtables...
-* (enable-printers)
-; => NIL
-* (decode (encode #d("string" "string"
-                     "double" 1.5d0
-                     "embedded" #d("embedded" "document"))))
-; => #d("string" "string" "double" 1.5d0 "embedded" #d("embedded" "document"))
-* (encode #d("my" "document"))
-; => #(22 0 0 0 2 109 121 0 9 0 0 0 100 111 99 117 109 101 110 116 0 0)
-* (decode *)
-; => #d("my" "document")
-)
-
+@title(Main API)
+@cl:with-package[name="cl-bson.encode"](@cl:doc(generic encode))
+@cl:with-package[name="cl-bson.decode"](@cl:doc(function decode))
 @end(section)
+
 @end(section)
