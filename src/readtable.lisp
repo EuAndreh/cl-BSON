@@ -71,6 +71,8 @@ All of them are just optional. If you don't like, feel free to not use it =]
 * #d(\"my\" \"doc\")
 ; => #d(\"my\" \"doc\")
 )
+
+Explicar sobre #d($lt 1)
 @end(section)"))
 (in-package cl-bson.readtable)
 (in-readtable lol:lol-syntax)

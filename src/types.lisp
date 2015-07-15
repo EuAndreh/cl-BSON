@@ -339,9 +339,17 @@ You can instanciate it with @c((make-instance '<document>)), which yields a @c(<
 
 (defgeneric add-element (document key value)
   (:documentation "Properly adds a given @cl:param(key)-@cl:param(value) pair to the @cl:param(document). The @cl:param(key) is coerced to string using the @cl:spec(string) function. The type of the @cl:param(value) must be a valid BSON supported type.")
+  (:method ((document <document>) key (value (eql t)))
+    (setf (get# (string key) (elements document)) value)
+    document)
+  (:method ((document <document>) key (value (eql nil)))
+    (setf (get# (string key) (elements document)) value)
+    document)
+  (:method ((document <document>) key (value symbol))
+    (add-element document key (string value)))
   (:method ((document <document>) key value)
-    (check-type value (or float string symbol <document> list vector <binary-data> <object-id>
-                          boolean <mongo-timestamp> <regex> <javascript> integer timestamp))
+    (check-type value (or float string <document> list vector <binary-data> <object-id>
+                          <mongo-timestamp> <regex> <javascript> integer timestamp))
     (setf (get# (string key) (elements document)) value)
     document))
 

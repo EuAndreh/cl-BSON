@@ -41,7 +41,7 @@
 (in-package cl-bson.encode)
 (in-readtable bson-syntax)
 
-(defparameter *bson-out* nil "Special var that gets bound to @c(fast-io:output-buffer) on every @c(#'encode) call.")
+(defvar *bson-out* nil "Special var that gets bound to @c(fast-io:output-buffer) on every @c(#'encode) call.")
 
 (defgeneric encode (document)
   (:documentation "Encodes a given @cl:param(document) into an @c(octets-array) following the @link[uri=\"http://bsonspec.org/spec.html\"](BSON specification).")
@@ -182,7 +182,7 @@ In general, the functions relative to @c(encode-the-value-somehow) converts the 
         (encode-cstring key)
         (let ((output-doc (with-fast-output (*bson-out*)
                             (fast-write-byte (int32->octets 0) *bson-out*)
-                            (encode-string (code value)) ;; initform?? unbound?
+                            (encode-string (code value))
                             (encode-document (elements (scope value))))))
           (fast-write-sequence (replace output-doc (int32->octets (length output-doc)))
                                *bson-out*)))

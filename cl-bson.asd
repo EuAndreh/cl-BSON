@@ -19,6 +19,7 @@
                named-readtables
                rutils
                trivial-shell)
+  :serial t
   :components ((:module "src"
                         :components ((:file "types")
                                      (:file "readtable")

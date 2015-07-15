@@ -135,7 +135,7 @@
                        (#x07 (decode-object-id))
                        (#x08 (decode-boolean))
                        (#x09 (decode-timestamp))
-                       #+nil ;; Never reaches here. false and null in Common Lisp are the same: nil
+                       #+nil ;; Never reaches here. false and null in Common Lisp are the same: nil.
                        (#x0A (decode-boolean))
                        (#x0B (decode-regex))
                        (#x0D (decode-javascript))
@@ -153,8 +153,8 @@
          (subtype (case (fast-read-byte *bson-in*)
                     (#x00 :generic)
                     (#x01 :function)
-                    (#x02 :binary-old)
-                    (#x03 :uuid-old)
+                    (#x02 :binary-old) ;; Deprecated
+                    (#x03 :uuid-old)   ;; Deprecated
                     (#x04 :uuid)
                     (#x05 :md5)
                     (#x80 :user-defined)))
@@ -170,7 +170,6 @@
     (case *bson-sequence-type*
       (list values)
       ((array vector) (coerce values 'vector)))))
-
 
 (defun decode (octets-array)
   "Main entry point to decode a given array. It performs the first binding of @c(*doc-out*) and call @c(#'decode-document)."
