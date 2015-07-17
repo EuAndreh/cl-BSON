@@ -1,7 +1,7 @@
 # cl-BSON
 [![Build Status](https://travis-ci.org/EuAndreh/cl-BSON.svg?branch=master)](https://travis-ci.org/EuAndreh/cl-BSON)
 [![Circle CI](https://circleci.com/gh/EuAndreh/cl-BSON.svg?style=svg)](https://circleci.com/gh/EuAndreh/cl-BSON/)
-[![Coverage Status](https://coveralls.io/repos/EuAndreh/cl-BSON/badge.svg?branch=master)](https://coveralls.io/r/EuAndreh/cl-BSON?branch=master)
+[![Coverage Status](https://coveralls.io/repos/EuAndreh/cl-bson/badge.svg?branch=master)](https://coveralls.io/r/EuAndreh/cl-bson?branch=master)
 
 Inspired by [cl-mongo](https://github.com/fons/cl-mongo) and [mongo-cl-driver](https://github.com/archimag/mongo-cl-driver/tree/master/bson).
 
