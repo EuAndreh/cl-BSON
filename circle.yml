@@ -16,4 +16,4 @@ dependencies:
 
 test:
   override:
-    - if [ "$CIRCLE_NODE_INDEX" = 0 ]; then COVERALLS=true run-prove cl-bson-test.asd; else run-prove cl-bson-test; fi: {paraller: true}
+    - if [ "$CIRCLE_NODE_INDEX" = 0 ]; then COVERALLS=true run-prove cl-bson-test.asd; else run-prove cl-bson-test; fi: {parallel: true}
