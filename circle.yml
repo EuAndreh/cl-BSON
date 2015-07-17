@@ -1,5 +1,5 @@
 machine:
-  enviroment:
+  environment:
     PATH: ~/.roswell/bin:$PATH
 
 dependencies:
