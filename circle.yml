@@ -1,6 +1,8 @@
+machine:
+  enviroment:
+    PATH: ~/.roswell/bin:$PATH
+
 dependencies:
-  cache_directories:
-    - ~/lisp
   pre:
     - curl -L https://raw.githubusercontent.com/snmsts/roswell/release/scripts/install-for-ci.sh | sh;
     - case $CIRCLE_NODE_INDEX in
@@ -9,11 +11,9 @@ dependencies:
            ros config set default.lisp ccl-bin ;;
       esac
     - ros run -- --version
-  post:
-    - if [ ! -d ~/lisp/archive ]; then
-        git clone https://github.com/froydnj/archive ~/lisp/archive;
-      fi
+  override:
+    - ros -l ~/lisp/prove/prove.asd install prove
 
 test:
   override:
-    - ros -s prove -e '(or (prove:run :cl-bson-test) (uiop:quit -1))': {parallel: true}
+    - if [ "$CIRCLE_NODE_INDEX" = 0 ]; then COVERALLS=true run-prove cl-bson-test.asd; else run-prove cl-bson-test; fi: {paraller: true}
