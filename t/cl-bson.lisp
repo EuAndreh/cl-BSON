@@ -218,7 +218,7 @@
           :test #'equalp
           "MACHINE-INSTANCE identifier is #'EQUALP to bytes 4 to 7 in the generated OBJ-ID-BYTES.")
       (is (subseq obj-id-bytes 7 9)
-          (-> (os-process-id)
+          (-> (cl-bson.types::os-process-id)
             int32->octets
             (subseq 0 2))
           :test #'equalp
