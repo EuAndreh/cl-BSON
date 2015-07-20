@@ -548,7 +548,7 @@
       "<BINARY-DATA> subtype is :FUNCTION")
   (is (subtype (enc-dec-kv "bin" (make-instance '<binary-data> :subtype :binary-old)))
       :binary-old
-      "<BINARY-DATA> subtype is :binary-old")
+      "<BINARY-DATA> subtype is :BINARY-OLD")
   (is (subtype (enc-dec-kv "bin" (make-instance '<binary-data> :subtype :uuid-old)))
       :uuid-old
       "<BINARY-DATA> subtype is :UUID-OLD")
