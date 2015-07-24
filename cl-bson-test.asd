@@ -12,8 +12,9 @@
   :depends-on (cl-bson
                prove)
   :components ((:module "t"
-                        :components ((:test-file "cl-bson"))))
+                        :components
+                        ((:test-file "cl-bson"))))
   :defsystem-depends-on (:prove-asdf)
   :perform (test-op :after (op c)
-                    (funcall (intern "RUN-TEST-SYSTEM" :prove-asdf) c)
+                    (funcall (intern #.(string :run-test-system) :prove-asdf) c)
                     (asdf:clear-system c)))
