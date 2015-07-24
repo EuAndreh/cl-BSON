@@ -3,7 +3,7 @@ sudo: true
 env:
   matrix:
     - LISP=abcl
-    - LISP=sbcl COVERALLS=true
+    - LISP=sbcl # COVERALLS=true
     - LISP=ccl
     - LISP=clisp
     - LISP=cmucl
