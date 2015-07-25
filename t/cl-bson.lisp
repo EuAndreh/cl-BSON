@@ -24,7 +24,7 @@
 (in-package cl-bson-test)
 (in-readtable bson:bson-syntax)
 (bson:enable-printers)
-
+(setf *print-pretty* t)
 ;; NOTE: To run this test file, execute `(asdf:test-system :cl-bson)' in your Lisp.
 
 (plan 7)
@@ -406,7 +406,7 @@
         '(cl-bson.readtable::bson-document-literal "1" "2")
         "Expands corretly to the non-empty form.")
     (is-error #d(1 2)
-              'simple-type-error
+              'type-error
               "Throws an error because 1 is not of type string nor coercible with #'STRING.")
     (is-error (macroexpand '#d("1" 2 "3"))
               'simple-error
