@@ -9,6 +9,8 @@ dependencies:
            ros config set default.lisp ccl-bin ;;
       esac
     - ros run -- --version
+  post:
+    - git clone https://github.com/EuAndreh/cl-intbytes ~/lisp/
 
 test:
   override:
