@@ -12,7 +12,6 @@ env:
 matrix:
   allow_failures:
     - env: LISP=abcl  # JVM build goes wrong too many times
-    - env: LISP=ccl   # I need to figure out how to test read-print behaviour correctly
     - env: LISP=clisp # wait for cl-coveralls dependencies to support it
     - env: LISP=cmucl # wait for CIM to support it
     - env: LISP=ecl   # wait for cl-coveralls dependencies to support it
