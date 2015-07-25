@@ -10,7 +10,10 @@ dependencies:
       esac
     - ros run -- --version
   post:
-    - git clone https://github.com/EuAndreh/cl-intbytes ~/lisp/cl-intbytes
+    - if [ ! -d ~/lisp/cl-intbytes ]; then
+        git clone https://github.com/EuAndreh/cl-intbytes ~/lisp/cl-intbytes;
+      fi
+
 
 test:
   override:
