@@ -28,5 +28,5 @@
                                      (:file "cl-bson")))
                (:static-file "README.md"))
   :long-description #.(uiop:read-file-string
-                       (uiop:subpathname *load-pathname* "README.md"))
+                       (asdf:system-relative-pathname :cl-bson "README.md"))
   :in-order-to ((test-op (test-op cl-bson-test))))
