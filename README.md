@@ -1,4 +1,5 @@
 # cl-BSON
+[![Quicklisp](http://quickdocs.org/badge/cl-BSON.svg)](http://quickdocs.org/cl-BSON/)
 [![Build Status](https://travis-ci.org/EuAndreh/cl-BSON.svg?branch=master)](https://travis-ci.org/EuAndreh/cl-BSON)
 [![Circle CI](https://circleci.com/gh/EuAndreh/cl-BSON.svg?style=svg)](https://circleci.com/gh/EuAndreh/cl-BSON/)
 [![Coverage Status](https://coveralls.io/repos/EuAndreh/cl-bson/badge.svg?branch=master)](https://coveralls.io/r/EuAndreh/cl-bson?branch=master)
