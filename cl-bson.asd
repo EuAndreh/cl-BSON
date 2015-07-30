@@ -4,7 +4,7 @@
   :author "André Miranda"
   :maintainer "André Miranda"
   :mailto "andremiramor@gmail.com"
-  :homepage "https://github.com/EuAndreh/cl-bson"
+  :homepage "http://euandre.org/cl-BSON"
   :bug-tracker "https://github.com/EuAndreh/cl-bson/issues"
   :source-control (:git "git@github.com:EuAndreh/cl-bson.git")
   :license "LLGPL"
@@ -28,5 +28,5 @@
                                      (:file "cl-bson")))
                (:static-file "README.md"))
   :long-description #.(uiop:read-file-string
-                       (asdf:system-relative-pathname :cl-bson "README.md"))
+                       (uiop:subpathname *load-truename* "README.md"))
   :in-order-to ((test-op (test-op cl-bson-test))))
