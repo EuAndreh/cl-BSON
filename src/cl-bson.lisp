@@ -61,6 +61,6 @@ Setting up with @link[uri=\"https://www.quicklisp.org/beta/\"](Quicklisp) and @l
 * (encode #d(\"my\" \"document\"))
 ; => #(22 0 0 0 2 109 121 0 9 0 0 0 100 111 99 117 109 101 110 116 0 0)
 * (decode *)
-; => #d(\"my\" \"document")
+; => #d(\"my\" \"document\")
 )
 @end(section)"))
