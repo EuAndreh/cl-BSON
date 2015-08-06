@@ -20,7 +20,7 @@ Inspired by [cl-mongo](https://github.com/fons/cl-mongo) and [mongo-cl-driver](h
 * (enable-printers)
 ; => NIL
 
-;; Obs.: all read macros are just optional
+;; Obs.: all read macros are just optional ;)
 ```
 
 ### Main API
@@ -37,6 +37,8 @@ The main functions are `encode` and `decode`:
              "will be coerced to double" 1.5
              "will stay as double" 1.5d0
              "embedded document" #d("one more level" #d("i believe" "that's enough"))
+             "one more" (let ((doc (make-document))
+                          (add-element doc "document" "example")))
              "sequence" #(1 2 3)
              "vector" #(1 2 3)
              "list" '(1 2 3)
@@ -74,6 +76,7 @@ The main functions are `encode` and `decode`:
         "will be coerced to double" 1.5d0
         "will stay as double" 1.5d0
         "embedded document" #d("one more level" #d("i believe" "that's enough"))
+        "one more" #d("document" "example")
         "sequence" #(1 2 3)
         "vector" #(1 2 3)
         "list" #(1 2 3)
@@ -172,7 +175,7 @@ The test package uses the [prove](https://github.com/fukamachi/prove) test libra
 If you find any bug or inconsistency in the code, or if you find it too hard to use, please, feel free to open an issue.
 
 ## Tests
-This library is tested under [ABCL](https://common-lisp.net/project/armedbear/), [SBCL](http://www.sbcl.org/), [CCL](http://ccl.clozure.com/), [CLISP](http://www.clisp.org/) and [ECL](https://common-lisp.net/project/ecl/) Common Lisp implementations.
+This library is tested under [SBCL](http://www.sbcl.org/) and [CCL](http://ccl.clozure.com/) Common Lisp implementations.
 
 To run all the defined tests, use:
 ```lisp
