@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>
+  Readtable &ndash; cl-BSON
+</title>
+    <link rel="stylesheet" href="static/style.css"/>
+    
+  <link rel="stylesheet" href="static/highlight.css"/>
+  <script src="static/highlight.js"></script>
+  <style>
+   /* Highlight the current top-level TOC item, and hide the TOC of all other items */
+
+   .toc a[data-section="readtable"] {
+       color: #AD3108;
+   }
+
+   .toc ol {
+       display: none;
+   }
+
+   .toc > ol {
+       display: block;
+   }
+
+   .toc li a[data-section="readtable"] + ol {
+       display: block;
+   }
+
+   .toc li a[data-section="readtable"] + ol li {
+       font-size: 16px;
+       margin: 0 10px;
+   }
+
+   .toc li a[active] + ol li:first-child {
+       margin-top: 5px;
+   }
+  </style>
+
+  </head>
+  <body>
+    
+  <h1 class="doc-title">cl-BSON » Readtable</h1>
+  <article id="article" data-section="readtable">
+    <aside>
+      <ol class="toc"><li><a href="api.html" data-section="api">API</a><ol><li><a href="api.html#examples" data-section="examples">Examples</a></li><li><a href="api.html#main-api" data-section="main-api">Main API</a></li></ol></li><li><a href="bson-types.html" data-section="bson-types">BSON Types</a><ol><li><a href="bson-types.html#classes-and-methods" data-section="classes-and-methods">Classes and methods</a><ol><li><a href="bson-types.html#<object-id>" data-section="<object-id>">&lt;OBJECT-ID&gt;</a></li><li><a href="bson-types.html#<regex>" data-section="<regex>">&lt;REGEX&gt;</a></li><li><a href="bson-types.html#<binary-data>" data-section="<binary-data>">&lt;BINARY-DATA&gt;</a></li><li><a href="bson-types.html#<javascript>" data-section="<javascript>">&lt;JAVASCRIPT&gt;</a></li><li><a href="bson-types.html#<mongo-timestamp>" data-section="<mongo-timestamp>">&lt;MONGO-TIMESTAMP&gt;</a></li><li><a href="bson-types.html#<document>" data-section="<document>">&lt;DOCUMENT&gt;</a></li></ol></li></ol></li><li><a href="encoding-and-decoding.html" data-section="encoding-and-decoding">Encoding and decoding</a><ol><li><a href="encoding-and-decoding.html#encoding" data-section="encoding">Encoding</a></li><li><a href="encoding-and-decoding.html#decoding" data-section="decoding">Decoding</a></li></ol></li><li><a href="readtable.html" data-section="readtable">Readtable</a><ol><li><a href="readtable.html#usage" data-section="usage">Usage</a></li><li><a href="readtable.html#printer" data-section="printer">Printer</a></li><li><a href="readtable.html#reader" data-section="reader">Reader</a></li></ol></li></ol>
+    </aside>
+    <main class="codex-section">
+      <p></p><p>Package for optional BSON read-print functionality. Uses <a href="https://common-lisp.net/project/named-readtables/">named-readtables</a> for <a href="http://l1sp.org/cl/*readtable*"><code>*readtable*</code></a> manipulation.</p><p>Defines read-macros for <code>#d()</code>(literal <code>&lt;document&gt;</code>) and for <code>#i()</code>(literal <code>&lt;document&gt;</code>).</p><p>Also defines <a href="http://l1sp.org/cl/pprint"><code>pprint</code></a>int behaviour (for consistent read-print equivalence) for <code>#d()</code> and <code>#i()</code> read-macros in the <code>bson-syntax</code> readtable.</p><p>All of them are just optional. If you don't like, feel free to not use it =]</p><h1 id="usage">Usage</h1><pre><code class="lisp">* (make-instance '&lt;regex&gt; :pattern &quot;^abc$&quot; :options &quot;i&quot;)
+; =&gt; #/^abc$/i
+* (make-instance '&lt;object-id&gt;)
+; =&gt; #i(90E08055616E64726568310C67E3D1)
+* (make-document)
+; =&gt; #d(&quot;_id&quot; #i(9CE08055616E64726568310C68E3D1))
+
+* (enable-printers)
+; =&gt; NIL
+* (make-instance '&lt;regex&gt; :pattern &quot;^abc$&quot; :options &quot;i&quot;)
+; =&gt; #/^abc$/i
+* (make-instance '&lt;object-id&gt;)
+; =&gt; #i(B4E08055616E64726568310C69E3D1)
+* (make-document)
+; =&gt; #d(&quot;_id&quot; #i(B8E08055616E64726568310C6AE3D1))
+
+* (named-readtables:in-readtable bson-syntax)
+; big alist of readtables
+* #/asdf/li
+; =&gt; #/asdf/il
+* #i(B4E08055616E64726568310C69E3D1)
+; =&gt; #i(B4E08055616E64726568310C69E3D1)
+* #d(&quot;my&quot; &quot;doc&quot;)
+; =&gt; #d(&quot;my&quot; &quot;doc&quot;)</code></pre><h1 id="printer">Printer</h1><div class="codex-error codex-no-node">No node with name <code>pprint-bson-document</code>.</div><div class="codex-error codex-no-node">No node with name <code>pprint-object-id</code>.</div><div class="codex-error codex-no-node">No node with name <code>enable-bson-document-printer</code>.</div><div class="codex-error codex-no-node">No node with name <code>enable-object-id-printer</code>.</div><div class="codex-error codex-no-node">No node with name <code>enable-printers</code>.</div><div class="codex-error codex-no-node">No node with name <code>disable-bson-document-printer</code>.</div><div class="codex-error codex-no-node">No node with name <code>disable-object-id-printer</code>.</div><div class="codex-error codex-no-node">No node with name <code>disable-printers</code>.</div><h1 id="reader">Reader</h1><div class="codex-error codex-no-node">No node with name <code>bson-document-reader</code>.</div><div class="codex-error codex-no-node">No node with name <code>object-id-reader</code>.</div><div class="codex-error codex-no-node">No node with name <code>bson-document-literal</code>.</div><div class="codex-error codex-no-node">No node with name <code>repeated-keys-p</code>.</div>
+    </main>
+  </article>
+  <footer>
+    <div class="info">
+      Created with <a href="https://github.com/CommonDoc/codex">Codex</a>.
+    </div>
+  </footer>
+  <script>
+   HighlightLisp.highlight_auto();
+  </script>
+
+  </body>
+</html>
