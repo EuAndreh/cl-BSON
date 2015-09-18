@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>
+  API &ndash; cl-BSON
+</title>
+    <link rel="stylesheet" href="static/style.css"/>
+    
+  <link rel="stylesheet" href="static/highlight.css"/>
+  <script src="static/highlight.js"></script>
+  <style>
+   /* Highlight the current top-level TOC item, and hide the TOC of all other items */
+
+   .toc a[data-section="api"] {
+       color: #AD3108;
+   }
+
+   .toc ol {
+       display: none;
+   }
+
+   .toc > ol {
+       display: block;
+   }
+
+   .toc li a[data-section="api"] + ol {
+       display: block;
+   }
+
+   .toc li a[data-section="api"] + ol li {
+       font-size: 16px;
+       margin: 0 10px;
+   }
+
+   .toc li a[active] + ol li:first-child {
+       margin-top: 5px;
+   }
+  </style>
+
+  </head>
+  <body>
+    
+  <h1 class="doc-title">cl-BSON » API</h1>
+  <article id="article" data-section="api">
+    <aside>
+      <ol class="toc"><li><a href="api.html" data-section="api">API</a><ol><li><a href="api.html#examples" data-section="examples">Examples</a></li><li><a href="api.html#main-api" data-section="main-api">Main API</a></li></ol></li><li><a href="bson-types.html" data-section="bson-types">BSON Types</a><ol><li><a href="classes-and-methods.html" data-section="classes-and-methods">Classes and methods</a><ol><li><a href="<object-id>.html" data-section="<object-id>">&lt;OBJECT-ID&gt;</a></li><li><a href="<regex>.html" data-section="<regex>">&lt;REGEX&gt;</a></li><li><a href="<binary-data>.html" data-section="<binary-data>">&lt;BINARY-DATA&gt;</a></li><li><a href="<javascript>.html" data-section="<javascript>">&lt;JAVASCRIPT&gt;</a></li><li><a href="<mongo-timestamp>.html" data-section="<mongo-timestamp>">&lt;MONGO-TIMESTAMP&gt;</a></li><li><a href="<document>.html" data-section="<document>">&lt;DOCUMENT&gt;</a></li></ol></li></ol></li><li><a href="encoding-and-decoding.html" data-section="encoding-and-decoding">Encoding and decoding</a><ol><li><a href="encoding.html" data-section="encoding">Encoding</a></li><li><a href="decoding.html" data-section="decoding">Decoding</a></li></ol></li><li><a href="readtable.html" data-section="readtable">Readtable</a><ol><li><a href="usage.html" data-section="usage">Usage</a></li><li><a href="printer.html" data-section="printer">Printer</a></li><li><a href="reader.html" data-section="reader">Reader</a></li></ol></li></ol>
+    </aside>
+    <main class="codex-section">
+      <p></p><p>The main API consists of two functions: <code>encode</code> and <code>decode</code>, which are the most important functionallity you'll need to implement a MongoDB driver, like <a href="http://euandre.org/cl-MongoDB">cl-MongoDB</a>.</p><p>All complies with the <a href="http://bsonspec.org/">BSON spec</a>.</p><h1 id="examples">Examples</h1>
+Setting up with <a href="https://www.quicklisp.org/beta/">Quicklisp</a> and <a href="https://common-lisp.net/project/named-readtables/">Named-Readtables</a>:
+<pre><code class="lisp">* (ql:quickload :cl-bson)
+; =&gt; (:CL-BSON)
+* (in-package :cl-bson)
+; =&gt; #&lt;PACKAGE &quot;CL-BSON&quot;&gt;
+* (named-readtables:in-readtable bson-syntax)
+; =&gt; big alist of readtables...
+* (enable-printers)
+; =&gt; NIL
+* (decode (encode #d(&quot;string&quot; &quot;string&quot;
+                     &quot;double&quot; 1.5d0
+                     &quot;embedded&quot; #d(&quot;embedded&quot; &quot;document&quot;))))
+; =&gt; #d(&quot;string&quot; &quot;string&quot; &quot;double&quot; 1.5d0 &quot;embedded&quot; #d(&quot;embedded&quot; &quot;document&quot;))
+* (encode #d(&quot;my&quot; &quot;document&quot;))
+; =&gt; #(22 0 0 0 2 109 121 0 9 0 0 0 100 111 99 117 109 101 110 116 0 0)
+* (decode *)
+; =&gt; #d(&quot;my&quot; &quot;document&quot;)</code></pre><h1 id="main-api">Main API</h1><div class="codex-error codex-no-node">No node with name <code>encode</code>.</div><div class="codex-error codex-no-node">No node with name <code>decode</code>.</div>
+    </main>
+  </article>
+  <footer>
+    <div class="info">
+      Created with <a href="https://github.com/CommonDoc/codex">Codex</a>.
+    </div>
+  </footer>
+  <script>
+   HighlightLisp.highlight_auto();
+  </script>
+
+  </body>
+</html>
