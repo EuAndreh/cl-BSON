@@ -1,7 +1,7 @@
 @begin(section)
 @title(API)
 
-The main API consists of two functions: @c(encode) and @c(decode), which are the most important functionallity you'll need to implement a MongoDB driver, like @link[uri="http://euandre.org/cl-MongoDB"](cl-MongoDB).
+The main API consists of two functions: @c(encode) and @c(decode), which are the most important functionallity you'll need to implement a MongoDB driver, like @link[uri="https://euandreh.github.io/cl-MongoDB"](cl-MongoDB).
 
 All complies with the @link[uri="http://bsonspec.org/"](BSON spec).
 
@@ -33,6 +33,7 @@ Setting up with @link[uri="https://www.quicklisp.org/beta/"](Quicklisp) and @lin
 @cl:with-package[name="cl-bson.decode"](@cl:doc(function decode))
 @end(section)
 @end(section)
+
 
 @begin(section)
 @title(BSON Types)
@@ -125,7 +126,7 @@ It also exports two custom types: @c(octet) and @c(octets-array).
 @begin(section)
   @title(Encoding)
 
-"This package defines the main function (@c(#'encode)) for actually converting a @c(<document>) object to @c(octets-array) and many helper functions for internal use. @c(*bson-out*) gets bound to a @c(fast-io:output-buffer) in the first to of @c(#'encode)."
+This package defines the main function (@c(#'encode)) for actually converting a @c(<document>) object to @c(octets-array) and many helper functions for internal use. @c(*bson-out*) gets bound to a @c(fast-io:output-buffer) in the first to of @c(#'encode).
 
   @cl:with-package[name="cl-bson.encode"](
     @cl:doc(generic encode)

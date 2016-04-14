@@ -4,7 +4,7 @@
   :author "André Miranda"
   :maintainer "André Miranda"
   :mailto "andremiramor@gmail.com"
-  :homepage "http://euandre.org/cl-BSON"
+  :homepage "https://euandreh.github.io/cl-BSON"
   :bug-tracker "https://github.com/EuAndreh/cl-bson/issues"
   :source-control (:git "git@github.com:EuAndreh/cl-bson.git")
   :license "LLGPL"
